@@ -194,9 +194,10 @@ let g:tagbar_type_go = {
 		\ 'ntype' : 'n'
 	\ },
 	\ 'ctagsbin'  : 'gotags',
-	\ 'ctagsargs' : '-sort -silent'
+    \ 'ctagsargs' : '-sort -silent'
 \ }
 
+let g:tagbar_sort = 0 "设置标签不排序，默认排序
 
 " }
 
