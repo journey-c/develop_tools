@@ -21,6 +21,12 @@ set hlsearch
 " 启用256色
 set t_Co=256
 
+" 开启24bit的颜色
+set termguicolors
+
+" 显示括号匹配
+" set showmatch
+
 " 不兼容VI
 set nocompatible
 
@@ -50,26 +56,53 @@ set encoding=utf-8
 
 " }
 
-" Beautify-Powerline {
-
-set rtp+=/home/lvcheng1/.local/lib/python2.7/site-packages/powerline/bindings/vim/
-set laststatus=2
- 
-" }
-
 " Plugin Management {
 
 filetype off
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-    Plugin 'VundleVim/Vundle.vim'
-    Plugin 'Valloric/YouCompleteMe'         " 自动补全 
-    Plugin 'scrooloose/nerdtree'            " 目录树
-    Plugin 'scrooloose/nerdcommenter'       " 注释
-    Plugin 'scrooloose/syntastic'           " code detection
-    Plugin 'rhysd/vim-clang-format'         " 格式化代码
-    Plugin 'ludovicchabant/vim-gutentags'   " auto ctags
-call vundle#end()
+call plug#begin('~/.vim/plugged')
+
+Plug 'Valloric/YouCompleteMe'         " 自动补全 
+Plug 'scrooloose/nerdtree'            " 目录树
+Plug 'scrooloose/nerdcommenter'       " 注释
+Plug 'scrooloose/syntastic'           " code detection
+Plug 'rhysd/vim-clang-format'         " 格式化代码
+Plug 'ludovicchabant/vim-gutentags'   " auto ctags
+Plug 'junegunn/vim-easy-align'        " 可以快速对齐的插件
+Plug 'jistr/vim-nerdtree-tabs'        " 可以使 nerdtree Tab 标签的名称更友好些
+Plug 'Xuyuanp/nerdtree-git-plugin'    " 可以在导航目录中看到 git 版本信息
+
+" Vim 中文文档
+Plug 'yianwillis/vimcdoc'
+
+" 查看当前代码文件中的变量和函数列表的插件，
+" 可以切换和跳转到代码中对应的变量和函数的位置
+" 大纲式导航, Go 需要 https://github.com/jstemmer/gotags 支持
+Plug 'majutsushi/tagbar'
+
+" 可以在文档中显示 git 信息
+Plug 'airblade/vim-gitgutter'
+
+" 下面两个插件要配合使用，可以自动生成代码块
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+
+" 配色方案
+Plug 'KeitaNakamura/neodark.vim'
+Plug 'crusoexia/vim-monokai'
+Plug 'acarapetis/vim-colors-github'
+Plug 'rakr/vim-one'
+
+" go 主要插件
+Plug 'fatih/vim-go', { 'tag': '*' }
+" go 中的代码追踪，输入 gd 就可以自动跳转
+Plug 'dgryski/vim-godef'
+
+" Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+Plug 'vim-airline/vim-airline'
+
+call plug#end()
+
+" }
 
 " Colorscheme {
 
@@ -79,6 +112,9 @@ syntax  on
 " 文件类型带上颜色
 syntax  enable
 
+" 突出显示当前行
+set cursorline 
+
 " 文件类型探测 使用缩进文件
 filetype plugin indent on
 
@@ -86,14 +122,14 @@ filetype plugin indent on
 set  background=dark
 
 " 设置主题
-" colorscheme  tomorrow-night
+colorscheme one
 
 " }
 
 " YCM {
 
 " 寻找全局配置文件
-let g:ycm_global_ycm_extra_conf = '/home/${USER}/.vim/bundle/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf = '/home/${USER}/.vim/plugged/YouCompleteMe/third_party/ycmd/.ycm_extra_conf.py'
 let g:ycm_seed_identifiers_with_syntax = 1          " 语法关键字补全
 set completeopt-=preview                            " 关闭预览
 let g:ycm_enable_diagnostic_signs = 0               " 关闭错误检测
@@ -101,13 +137,66 @@ let g:ycm_enable_diagnostic_highlighting = 0        " 关闭错误检测高亮
 
 " }
 
+" vim-go {
+"
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+
+let g:godef_split=2
+
+" }
+
 " TagList {
 
-map <F3> :TlistToggle<CR>
-let Tlist_Show_One_File=1           " 只显示当前文件的tags
-let Tlist_WinWidth=25               " 设置taglist宽度
-let Tlist_Exit_OnlyWindow=1         " tagList窗口是最后一个窗口，则退出Vim
-let Tlist_Use_Right_Window=1        " 在Vim窗口右侧显示taglist窗口
+" map <F3> :TlistToggle<CR>
+" let Tlist_Show_One_File=1           " 只显示当前文件的tags
+" let Tlist_WinWidth=25               " 设置taglist宽度
+" let Tlist_Exit_OnlyWindow=1         " tagList窗口是最后一个窗口，则退出Vim
+" let Tlist_Use_Right_Window=1        " 在Vim窗口右侧显示taglist窗口
+
+" majutsushi/tagbar {
+"
+map <F3> :TagbarToggle<CR>
+
+let g:tagbar_type_go = {
+	\ 'ctagstype' : 'go',
+	\ 'kinds'     : [
+		\ 'p:package',
+		\ 'i:imports:1',
+		\ 'c:constants',
+		\ 'v:variables',
+		\ 't:types',
+		\ 'n:interfaces',
+		\ 'w:fields',
+		\ 'e:embedded',
+		\ 'm:methods',
+		\ 'r:constructor',
+		\ 'f:functions'
+	\ ],
+	\ 'sro' : '.',
+	\ 'kind2scope' : {
+		\ 't' : 'ctype',
+		\ 'n' : 'ntype'
+	\ },
+	\ 'scope2kind' : {
+		\ 'ctype' : 't',
+		\ 'ntype' : 'n'
+	\ },
+	\ 'ctagsbin'  : 'gotags',
+	\ 'ctagsargs' : '-sort -silent'
+\ }
+
 
 " }
 
@@ -115,8 +204,40 @@ let Tlist_Use_Right_Window=1        " 在Vim窗口右侧显示taglist窗口
 
 map <F4> :NERDTreeToggle<CR>
 
-"设置NERDTree的宽度
+" let NERDTreeShowLineNumbers=1
+" 打开文件时是否显示目录
+let NERDTreeAutoCenter=1
+" 是否显示隐藏文件
+let NERDTreeShowHidden=0
+" 设置宽度
 let NERDTreeWinSize=25
+" 忽略一下文件的显示
+let NERDTreeIgnore=['\.pyc','\~$','\.swp']
+" 打开 vim 文件及显示书签列表
+let NERDTreeShowBookmarks=2
+
+" 在终端启动vim时，共享NERDTree
+" let g:nerdtree_tabs_open_on_console_startup=1
+
+" }
+
+" nerdtree-git-plugin {
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+let g:NERDTreeShowIgnoredStatus = 1
+
 " }
 
 " nerdcommenter {
@@ -130,12 +251,17 @@ map <C-m> ,c<space>
 
 " Compile {
 
+" C++
+
 map <F6> :call CR()<CR>
 func! CR()
     exec "w"
     exec "!g++ % -std=c++11 -o %<"
     exec "! ./%<"
 endfunc
+
+" Golang
+autocmd FileType go map <F8> :GoRun %<CR>
 
 " }
 
