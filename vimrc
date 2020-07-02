@@ -48,16 +48,25 @@ set encoding=utf-8
 " 设置n个字自动换行
 " set textwidth=n
 
+" 恢复光标位置
+if has("autocmd")
+    au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+endif
+
 " }
 
 " Plugin Management {
 
 filetype off
 call plug#begin('~/.vim/plugged')
-    Plug 'scrooloose/nerdtree'            " 目录树
-    Plug 'scrooloose/nerdcommenter'       " 注释
-    Plug 'vim-airline/vim-airline'        " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
-    Plug 'rhysd/vim-clang-format'         " 格式化代码
+    Plug 'scrooloose/nerdtree'                        " 目录树
+    Plug 'scrooloose/nerdcommenter'                   " 注释
+    Plug 'vim-airline/vim-airline'                    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+    Plug 'rhysd/vim-clang-format'                     " 格式化代码
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' } " 全局搜索
+    Plug 'Valloric/YouCompleteMe'                     " 代码补全
+    Plug 'fatih/vim-go'                               " vim-go
+    Plug 'yianwillis/vimcdoc'                         " 中文文档
 call plug#end()
 
 " Colorscheme {
@@ -75,21 +84,60 @@ filetype plugin indent on
 set  background=dark
 
 " 设置主题
-" colorscheme  tomorrow-night
+colorscheme onedark
 
 " }
 
-" TagList {
+" vim-go {
 
-map <F3> :TlistToggle<CR>
-let Tlist_Ctags_Cmd="/usr/local/bin/ctags"
-let Tlist_Show_One_File=1           " 只显示当前文件的tags
-let Tlist_WinWidth=25               " 设置taglist宽度
-let Tlist_Exit_OnlyWindow=1         " tagList窗口是最后一个窗口，则退出Vim
-let Tlist_Use_Right_Window=1        " 在Vim窗口右侧显示taglist窗口
+let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
+let g:go_def_mode = 'gopls'
+let g:go_autodetect_gopath = 1
+let g:go_list_type = "quickfix"
+let g:go_version_warning = 1
+let g:go_highlight_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_function_calls = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_generate_tags = 1
+let g:godef_split=2
+
+" push quickfix window always to the bottom
+autocmd FileType qf wincmd J
 
 " }
 
+" YoucompleteMe {
+
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_show_diagnostics_ui = 0
+let g:ycm_server_log_level = 'info'
+let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_complete_in_strings=1
+let g:ycm_key_invoke_completion = '<c-z>'
+set completeopt=menu,menuone
+
+noremap <c-z> <NOP>
+
+let g:ycm_semantic_triggers =  {
+			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+			\ 'cs,lua,javascript': ['re!\w{2}'],
+			\ }
+
+highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+
+" }
+
+" LeaderF {
+
+let g:Lf_ShortcutF = '<C-P>'
+
+" }
 " NERDTree {
 
 map <F4> :NERDTreeToggle<CR>
@@ -157,3 +205,6 @@ func SetCommonFileConfig()
 endfunc
 
 " }
+
+
+nmap <F8> :!dot % -T png -Gsize=4,6\! -Gdpi=350 -o %<.png && open %<.png <CR>
