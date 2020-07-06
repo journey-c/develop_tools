@@ -136,6 +136,7 @@ highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
 " LeaderF {
 
 let g:Lf_ShortcutF = '<C-P>'
+let g:Lf_ShowDevIcons = 0
 
 " }
 " NERDTree {
