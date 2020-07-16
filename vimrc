@@ -36,6 +36,10 @@ set incsearch
 " 使用UTF-8编码
 set encoding=utf-8
 
+" 所在行高亮
+" set cursorcolumn
+set cursorline
+
 " 使用鼠标
 " set mouse=a
 
@@ -60,6 +64,7 @@ endif
 filetype off
 call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree'                        " 目录树
+    Plug 'Xuyuanp/nerdtree-git-plugin'                " 目录树显示git
     Plug 'scrooloose/nerdcommenter'                   " 注释
     Plug 'vim-airline/vim-airline'                    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
     Plug 'rhysd/vim-clang-format'                     " 格式化代码
@@ -85,6 +90,11 @@ set  background=dark
 
 " 设置主题
 colorscheme onedark
+
+" Set the vertical split character to  a space (there is a single space after '\ ')
+set fillchars+=vert:\ 
+highlight VertSplit ctermbg=236 ctermfg=236
+" highlight VertSplit ctermfg=39
 
 " }
 
@@ -139,12 +149,53 @@ let g:Lf_ShortcutF = '<C-P>'
 let g:Lf_ShowDevIcons = 0
 
 " }
+
 " NERDTree {
 
 map <F4> :NERDTreeToggle<CR>
 
 "设置NERDTree的宽度
-let NERDTreeWinSize=25
+let NERDTreeWinSize=30
+
+let g:NERDTreeIndicatorMapCustom = {
+    \ "Modified"  : "✹",
+    \ "Staged"    : "✚",
+    \ "Untracked" : "✭",
+    \ "Renamed"   : "➜",
+    \ "Unmerged"  : "═",
+    \ "Deleted"   : "✖",
+    \ "Dirty"     : "✗",
+    \ "Clean"     : "✔︎",
+    \ 'Ignored'   : '☒',
+    \ "Unknown"   : "?"
+    \ }
+
+let g:NERDTreeShowIgnoredStatus = 1
+
+" }
+
+" vim-airline {
+
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+let g:airline_left_sep = '▶'
+let g:airline_left_alt_sep = '❯'
+let g:airline_right_sep = '◀'
+let g:airline_right_alt_sep = '❮'
+let g:airline_symbols.linenr = '¶'
+let g:airline_symbols.branch = '⎇'
+
+let g:airline#extensions#tabline#enabled = 1
+
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#tabnr_formatter = 'tabnr'
+
+map<tab> gt
+
 " }
 
 " nerdcommenter {
@@ -170,7 +221,7 @@ endfunc
 " Code Style {
 
 autocmd FileType cpp,c,yaml exec ":call SetCppFileConfig()" 
-autocmd FileType go,bash,python,java,html,javascipt,vim,sh exec ":call SetCommonFileConfig()"
+autocmd FileType go,bash,python,java,html,javascipt,vim,sh,dot exec ":call SetCommonFileConfig()"
 
 func SetCppFileConfig()
     " 设置tab为2个空格
