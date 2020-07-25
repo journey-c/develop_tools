@@ -52,6 +52,10 @@ set cursorline
 " 设置n个字自动换行
 " set textwidth=n
 
+set foldmethod=syntax
+
+set nofoldenable
+
 " 恢复光标位置
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -64,7 +68,6 @@ endif
 filetype off
 call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree'                        " 目录树
-    Plug 'Xuyuanp/nerdtree-git-plugin'                " 目录树显示git
     Plug 'scrooloose/nerdcommenter'                   " 注释
     Plug 'vim-airline/vim-airline'                    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
     Plug 'rhysd/vim-clang-format'                     " 格式化代码
@@ -86,7 +89,7 @@ syntax  enable
 filetype plugin indent on
 
 " 设置背景色
-set  background=dark
+" set  background=dark
 
 " 设置主题
 colorscheme onedark
@@ -94,7 +97,6 @@ colorscheme onedark
 " Set the vertical split character to  a space (there is a single space after '\ ')
 set fillchars+=vert:\ 
 highlight VertSplit ctermbg=236 ctermfg=236
-" highlight VertSplit ctermfg=39
 
 " }
 
@@ -122,10 +124,24 @@ autocmd FileType qf wincmd J
 
 " YoucompleteMe {
 
-let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+
+" 展示错误诊断
 let g:ycm_show_diagnostics_ui = 0
-let g:ycm_server_log_level = 'info'
+" error符号
+" let g:ycm_error_symbol = ''
+" warning符号
+" let g:ycm_warning_symbol = ''
+" 最少按2个字符补全
 let g:ycm_min_num_identifier_candidate_chars = 2
+" 显示错误原因
+" let g:ycm_echo_current_diagnostic = 1
+" 补全预览
+" let g:ycm_add_preview_to_completeopt = 1
+" let g:ycm_autoclose_preview_window_after_completion = 1
+" log等级
+let g:ycm_server_log_level = 'info'
+
 let g:ycm_collect_identifiers_from_comments_and_strings = 1
 let g:ycm_complete_in_strings=1
 let g:ycm_key_invoke_completion = '<c-z>'
@@ -156,19 +172,7 @@ map <F4> :NERDTreeToggle<CR>
 
 "设置NERDTree的宽度
 let NERDTreeWinSize=30
-
-let g:NERDTreeIndicatorMapCustom = {
-    \ "Modified"  : "✹",
-    \ "Staged"    : "✚",
-    \ "Untracked" : "✭",
-    \ "Renamed"   : "➜",
-    \ "Unmerged"  : "═",
-    \ "Deleted"   : "✖",
-    \ "Dirty"     : "✗",
-    \ "Clean"     : "✔︎",
-    \ 'Ignored'   : '☒',
-    \ "Unknown"   : "?"
-    \ }
+let g:NERDTreeWinPos='right'
 
 let g:NERDTreeShowIgnoredStatus = 1
 
@@ -176,25 +180,26 @@ let g:NERDTreeShowIgnoredStatus = 1
 
 " vim-airline {
 
-if !exists('g:airline_symbols')
-    let g:airline_symbols = {}
-endif
+" if !exists('g:airline_symbols')
+    " let g:airline_symbols = {}
+" endif
 
-let g:airline_left_sep = '▶'
-let g:airline_left_alt_sep = '❯'
-let g:airline_right_sep = '◀'
-let g:airline_right_alt_sep = '❮'
-let g:airline_symbols.linenr = '¶'
-let g:airline_symbols.branch = '⎇'
+" let g:airline_left_sep = '▶'
+" let g:airline_left_alt_sep = '❯'
+" let g:airline_right_sep = '◀'
+" let g:airline_right_alt_sep = '❮'
+" let g:airline_symbols.linenr = '¶'
+" let g:airline_symbols.branch = '⎇'
 
-let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled = 1
 
-let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#extensions#tabline#tabnr_formatter = 'tabnr'
+" let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+" let g:airline#extensions#tabline#tabnr_formatter = 'tabnr'
+" let g:airline_inactive_collapse=1
 
-map<tab> gt
+" map<tab> :bn<CR>
 
 " }
 
@@ -236,7 +241,8 @@ func SetCppFileConfig()
     " 谷歌C++代码风格检测
     let g:clang_format#command = 'clang-format'
     nmap <F7> :ClangFormat<cr>
-    autocmd FileType c ClangFormatAutoEnable
+    " 自动format
+    " autocmd FileType c ClangFormatAutoEnable
     let g:clang_format#detect_style_file = 1
 
     " ctags补全结构体
