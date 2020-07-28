@@ -56,6 +56,9 @@ set foldmethod=syntax
 
 set nofoldenable
 
+" 设置leader键
+let mapleader="\<space>"
+
 " 恢复光标位置
 if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
@@ -68,6 +71,7 @@ endif
 filetype off
 call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree'                        " 目录树
+    Plug 'majutsushi/tagbar'                          " 函数树
     Plug 'scrooloose/nerdcommenter'                   " 注释
     Plug 'vim-airline/vim-airline'                    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
     Plug 'rhysd/vim-clang-format'                     " 格式化代码
@@ -102,21 +106,22 @@ highlight VertSplit ctermbg=236 ctermfg=236
 
 " vim-go {
 
-let g:go_fmt_command = "goimports" " 格式化将默认的 gofmt 替换
-let g:go_info_mode = 'gopls'
-let g:go_def_mode = 'gopls'
-let g:go_rename_command = 'gopls'
-let g:go_autodetect_gopath = 1
-let g:go_list_type = "quickfix"
-let g:go_version_warning = 1
-let g:go_highlight_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_generate_tags = 1
+let g:go_fmt_command="goimports" " 格式化将默认的 gofmt 替换
+let g:go_info_mode='gopls'
+let g:go_def_mode='gopls'
+let g:go_rename_command='gopls'  " 重命名变量
+let g:go_referrers_mode='gopls'
+let g:go_autodetect_gopath=1
+let g:go_list_type="quickfix"
+let g:go_version_warning=1
+let g:go_highlight_types=1
+let g:go_highlight_fields=1
+let g:go_highlight_functions=1
+let g:go_highlight_function_calls=1
+let g:go_highlight_operators=1
+let g:go_highlight_extra_types=1
+let g:go_highlight_methods=1
+let g:go_highlight_generate_tags=1
 let g:godef_split=2
 
 " push quickfix window always to the bottom
@@ -126,32 +131,32 @@ autocmd FileType qf wincmd J
 
 " YoucompleteMe {
 
-let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_extra_conf.py'
+let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
 
 " 展示错误诊断
-let g:ycm_show_diagnostics_ui = 0
+let g:ycm_show_diagnostics_ui=0
 " error符号
-" let g:ycm_error_symbol = ''
+" let g:ycm_error_symbol=''
 " warning符号
-" let g:ycm_warning_symbol = ''
+" let g:ycm_warning_symbol=''
 " 最少按2个字符补全
-let g:ycm_min_num_identifier_candidate_chars = 2
+let g:ycm_min_num_identifier_candidate_chars=2
 " 显示错误原因
-" let g:ycm_echo_current_diagnostic = 1
+" let g:ycm_echo_current_diagnostic=1
 " 补全预览
-" let g:ycm_add_preview_to_completeopt = 1
-" let g:ycm_autoclose_preview_window_after_completion = 1
+" let g:ycm_add_preview_to_completeopt=1
+" let g:ycm_autoclose_preview_window_after_completion=1
 " log等级
-let g:ycm_server_log_level = 'info'
+let g:ycm_server_log_level='info'
 
-let g:ycm_collect_identifiers_from_comments_and_strings = 1
+let g:ycm_collect_identifiers_from_comments_and_strings=1
 let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion = '<c-z>'
+let g:ycm_key_invoke_completion='<c-z>'
 set completeopt=menu,menuone
 
 noremap <c-z> <NOP>
 
-let g:ycm_semantic_triggers =  {
+let g:ycm_semantic_triggers= {
 			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
 			\ 'cs,lua,javascript': ['re!\w{2}'],
 			\ }
@@ -163,8 +168,17 @@ highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
 
 " LeaderF {
 
-let g:Lf_ShortcutF = '<C-P>'
-let g:Lf_ShowDevIcons = 0
+let g:Lf_ShortcutF='<C-P>'
+let g:Lf_ShowDevIcons=0
+
+" }
+
+" tagbar {
+
+map <F3> :TagbarToggle<CR>
+
+let g:tagbar_width=30           " 宽度
+let g:tagbar_sort=0             " 不排序
 
 " }
 
@@ -174,31 +188,31 @@ map <F4> :NERDTreeToggle<CR>
 
 "设置NERDTree的宽度
 let NERDTreeWinSize=30
-let g:NERDTreeWinPos='right'
+let g:NERDTreeWinPos='left'
 
-let g:NERDTreeShowIgnoredStatus = 1
+let g:NERDTreeShowIgnoredStatus=1
 
 " }
 
 " vim-airline {
 
 " if !exists('g:airline_symbols')
-    " let g:airline_symbols = {}
+    " let g:airline_symbols={}
 " endif
 
-" let g:airline_left_sep = '▶'
-" let g:airline_left_alt_sep = '❯'
-" let g:airline_right_sep = '◀'
-" let g:airline_right_alt_sep = '❮'
-" let g:airline_symbols.linenr = '¶'
-" let g:airline_symbols.branch = '⎇'
+" let g:airline_left_sep='▶'
+" let g:airline_left_alt_sep='❯'
+" let g:airline_right_sep='◀'
+" let g:airline_right_alt_sep='❮'
+" let g:airline_symbols.linenr='¶'
+" let g:airline_symbols.branch='⎇'
 
-" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#enabled=1
 
-" let g:airline#extensions#tabline#formatter = 'unique_tail'
+" let g:airline#extensions#tabline#formatter='unique_tail'
 
-" let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-" let g:airline#extensions#tabline#tabnr_formatter = 'tabnr'
+" let g:airline#extensions#tabline#tab_nr_type=1 " tab number
+" let g:airline#extensions#tabline#tabnr_formatter='tabnr'
 " let g:airline_inactive_collapse=1
 
 " map<tab> :bn<CR>
@@ -207,10 +221,7 @@ let g:NERDTreeShowIgnoredStatus = 1
 
 " nerdcommenter {
 
-" 注释的时候自动加个空格, 强迫症必配
-let mapleader=","
-let g:NERDSpaceDelims=1
-map <C-m> ,c<space>
+let g:NERDSpaceDelims=1 " 注释后加空格
 
 " }
 
@@ -241,11 +252,11 @@ func SetCppFileConfig()
     set expandtab  
 
     " 谷歌C++代码风格检测
-    let g:clang_format#command = 'clang-format'
+    let g:clang_format#command='clang-format'
     nmap <F7> :ClangFormat<cr>
     " 自动format
     " autocmd FileType c ClangFormatAutoEnable
-    let g:clang_format#detect_style_file = 1
+    let g:clang_format#detect_style_file=1
 
     " ctags补全结构体
     " set completeopt=longest,menu
