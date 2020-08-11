@@ -71,15 +71,28 @@ endif
 filetype off
 call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree'                        " 目录树
-    Plug 'majutsushi/tagbar'                          " 函数树
     Plug 'scrooloose/nerdcommenter'                   " 注释
     Plug 'vim-airline/vim-airline'                    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+    Plug 'vim-airline/vim-airline-themes'             " 主题
+    Plug 'tpope/vim-fugitive'                         " 显示git分支
     Plug 'rhysd/vim-clang-format'                     " 格式化代码
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' } " 全局搜索
     Plug 'Valloric/YouCompleteMe'                     " 代码补全
     Plug 'fatih/vim-go'                               " vim-go
     Plug 'yianwillis/vimcdoc'                         " 中文文档
 call plug#end()
+
+" lsp {
+
+" if executable('cquery')
+    " au User lsp_setup call lsp#register_server({
+        " \ 'name': 'cxx',
+        " \ 'cmd': {server_info->['cquery']},
+        " \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
+        " \ })
+" endif
+
+" }
 
 " Colorscheme {
 
@@ -111,6 +124,7 @@ let g:go_info_mode='gopls'
 let g:go_def_mode='gopls'
 let g:go_rename_command='gopls'  " 重命名变量
 let g:go_referrers_mode='gopls'
+
 let g:go_autodetect_gopath=1
 let g:go_list_type="quickfix"
 let g:go_version_warning=1
@@ -170,52 +184,79 @@ highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
 
 let g:Lf_ShortcutF='<C-P>'
 let g:Lf_ShowDevIcons=0
+nmap <C-f> :LeaderfFunction<CR>
 
 " }
 
-" tagbar {
+" taglist {
 
-map <F3> :TagbarToggle<CR>
-
-let g:tagbar_width=30           " 宽度
-let g:tagbar_sort=0             " 不排序
+" nmap <F3> :TagbarToggle<CR>
 
 " }
 
 " NERDTree {
 
-map <F4> :NERDTreeToggle<CR>
+nmap <leader>n :NERDTreeToggle<CR>
+" map <F4> :NERDTreeToggle<CR>
 
 "设置NERDTree的宽度
 let NERDTreeWinSize=30
-let g:NERDTreeWinPos='left'
+let g:NERDTreeWinPos='right'
 
 let g:NERDTreeShowIgnoredStatus=1
+
+let g:NERDTreeDirArrowExpandable = ''
+let g:NERDTreeDirArrowCollapsible = ''
+"  *        
 
 " }
 
 " vim-airline {
 
-" if !exists('g:airline_symbols')
-    " let g:airline_symbols={}
-" endif
+if !exists('g:airline_symbols')
+    let g:airline_symbols={}
+endif
 
-" let g:airline_left_sep='▶'
-" let g:airline_left_alt_sep='❯'
-" let g:airline_right_sep='◀'
-" let g:airline_right_alt_sep='❮'
-" let g:airline_symbols.linenr='¶'
-" let g:airline_symbols.branch='⎇'
+let airline#extensions#tabline#ignore_bufadd_pat =
+            \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
+let g:airline#extensions#tabline#keymap_ignored_filetypes =
+            \ ['vimfiler', 'nerdtree']
 
-" let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#left_sep = ''
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ''
+let g:airline#extensions#tabline#right_alt_sep = ''
 
-" let g:airline#extensions#tabline#formatter='unique_tail'
 
-" let g:airline#extensions#tabline#tab_nr_type=1 " tab number
-" let g:airline#extensions#tabline#tabnr_formatter='tabnr'
-" let g:airline_inactive_collapse=1
+let g:airline_left_sep = ''
+let g:airline_left_alt_sep = ''
+let g:airline_right_sep = ''
+let g:airline_right_alt_sep = ''
+let g:airline_symbols.branch = ''
+let g:airline_symbols.readonly = ''
+let g:airline_symbols.linenr = '☰'
+let g:airline_symbols.maxlinenr = ''
+let g:airline_symbols.dirty='⚡'
 
-" map<tab> :bn<CR>
+let g:airline_theme='jellybeans'
+let g:airline#extensions#tabline#formatter = 'unique_tail'
+
+" tabline
+let g:airline#extensions#tabline#enabled=1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+nmap <leader>- <Plug>AirlineSelectPrevTab
+nmap <leader>+ <Plug>AirlineSelectNextTab
+nmap <leader>q :bdelete<CR>
+nmap <tab> :bn<CR>
 
 " }
 

@@ -2,4 +2,4 @@
 
 Vim configuration file
 
-![Preview](./images/vim_0.png)
+![Preview](./images/vim_1.png)
