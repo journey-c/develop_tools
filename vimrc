@@ -64,6 +64,9 @@ if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
+" 右侧打开内置terminal
+nmap <leader>t :rightbelow vert term<CR>
+
 " }
 
 " Plugin Management {
@@ -80,17 +83,21 @@ call plug#begin('~/.vim/plugged')
     Plug 'Valloric/YouCompleteMe'                     " 代码补全
     Plug 'fatih/vim-go'                               " vim-go
     Plug 'yianwillis/vimcdoc'                         " 中文文档
+    Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
 " lsp {
 
-" if executable('cquery')
-    " au User lsp_setup call lsp#register_server({
-        " \ 'name': 'cxx',
-        " \ 'cmd': {server_info->['cquery']},
-        " \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
-        " \ })
-" endif
+" cxx
+if executable('clangd')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+let g:lsp_diagnostics_enabled = 0
+
 
 " }
 
@@ -184,7 +191,7 @@ highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
 
 let g:Lf_ShortcutF='<C-P>'
 let g:Lf_ShowDevIcons=0
-nmap <C-f> :LeaderfFunction<CR>
+nmap <leader>f :LeaderfFunction<CR>
 
 " }
 
@@ -294,7 +301,8 @@ func SetCppFileConfig()
 
     " 谷歌C++代码风格检测
     let g:clang_format#command='clang-format'
-    nmap <F7> :ClangFormat<cr>
+    nmap <F7> :ClangFormat<CR>
+    nmap <C-]> :LspDefinition<CR>
     " 自动format
     " autocmd FileType c ClangFormatAutoEnable
     let g:clang_format#detect_style_file=1
