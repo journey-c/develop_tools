@@ -83,6 +83,7 @@ call plug#begin('~/.vim/plugged')
     Plug 'Valloric/YouCompleteMe'                     " 代码补全
     Plug 'fatih/vim-go'                               " vim-go
     Plug 'yianwillis/vimcdoc'                         " 中文文档
+    Plug 'jiangmiao/auto-pairs'                       " 括号匹配
     Plug 'prabirshrestha/vim-lsp'
 call plug#end()
 
@@ -98,7 +99,6 @@ if executable('clangd')
 endif
 let g:lsp_diagnostics_enabled = 0
 
-
 " }
 
 " Colorscheme {
@@ -113,7 +113,7 @@ syntax  enable
 filetype plugin indent on
 
 " 设置背景色
-" set  background=dark
+set  background=dark
 
 " 设置主题
 colorscheme onedark
@@ -161,29 +161,29 @@ let g:ycm_show_diagnostics_ui=0
 " warning符号
 " let g:ycm_warning_symbol=''
 " 最少按2个字符补全
-let g:ycm_min_num_identifier_candidate_chars=2
+" let g:ycm_min_num_identifier_candidate_chars=2
 " 显示错误原因
 " let g:ycm_echo_current_diagnostic=1
 " 补全预览
 " let g:ycm_add_preview_to_completeopt=1
 " let g:ycm_autoclose_preview_window_after_completion=1
 " log等级
-let g:ycm_server_log_level='info'
+" let g:ycm_server_log_level='info'
 
-let g:ycm_collect_identifiers_from_comments_and_strings=1
-let g:ycm_complete_in_strings=1
-let g:ycm_key_invoke_completion='<c-z>'
+" let g:ycm_collect_identifiers_from_comments_and_strings=1
+" let g:ycm_complete_in_strings=1
+" let g:ycm_key_invoke_completion='<c-z>'
 set completeopt=menu,menuone
 
-noremap <c-z> <NOP>
+" noremap <c-z> <NOP>
 
-let g:ycm_semantic_triggers= {
-			\ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			\ 'cs,lua,javascript': ['re!\w{2}'],
-			\ }
+" let g:ycm_semantic_triggers= {
+			" \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
+			" \ 'cs,lua,javascript': ['re!\w{2}'],
+			" \ }
 
-highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
+" highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
+" highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
 
 " }
 
@@ -265,6 +265,15 @@ nmap <leader>+ <Plug>AirlineSelectNextTab
 nmap <leader>q :bdelete<CR>
 nmap <tab> :bn<CR>
 
+nmap <leader>c :call CloseAllBuffersButCurrent()<CR>
+function! CloseAllBuffersButCurrent()
+    let curr = bufnr("%")
+    let last = bufnr("$")
+
+    if curr > 1    | silent! execute "1,".(curr-1)."bd"     | endif
+    if curr < last | silent! execute (curr+1).",".last."bd" | endif
+endfunction
+
 " }
 
 " nerdcommenter {
@@ -275,7 +284,7 @@ let g:NERDSpaceDelims=1 " 注释后加空格
 
 " Compile {
 
-map <F6> :call CR()<CR>
+nmap <F6> :call CR()<CR>
 func! CR()
     exec "w"
     exec "!g++ % -std=c++11 -o %<"
