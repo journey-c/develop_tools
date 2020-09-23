@@ -40,6 +40,9 @@ set encoding=utf-8
 " set cursorcolumn
 set cursorline
 
+" 相对行号
+set relativenumber
+
 " 使用鼠标
 " set mouse=a
 
@@ -78,26 +81,164 @@ call plug#begin('~/.vim/plugged')
     Plug 'vim-airline/vim-airline'                    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
     Plug 'vim-airline/vim-airline-themes'             " 主题
     Plug 'tpope/vim-fugitive'                         " 显示git分支
-    Plug 'rhysd/vim-clang-format'                     " 格式化代码
     Plug 'Yggdroot/LeaderF', { 'do': './install.sh' } " 全局搜索
-    Plug 'Valloric/YouCompleteMe'                     " 代码补全
     Plug 'fatih/vim-go'                               " vim-go
     Plug 'yianwillis/vimcdoc'                         " 中文文档
     Plug 'jiangmiao/auto-pairs'                       " 括号匹配
-    Plug 'prabirshrestha/vim-lsp'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}   " 自动补全
 call plug#end()
 
-" lsp {
+" coc.nvim {
 
-" cxx
-if executable('clangd')
-    au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd', '-background-index']},
-        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp'],
-        \ })
+" TextEdit might fail if hidden is not set.
+set hidden
+
+" Some servers have issues with backup files, see #649.
+set nowritebackup
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
+" delays and poor user experience.
+set updatetime=300
+
+" Don't pass messages to |ins-completion-menu|.
+set shortmess+=c
+
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved.
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
 endif
-let g:lsp_diagnostics_enabled = 0
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+xmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current buffer.
+nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Map function and class text objects
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+omap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap af <Plug>(coc-funcobj-a)
+xmap ic <Plug>(coc-classobj-i)
+omap ic <Plug>(coc-classobj-i)
+xmap ac <Plug>(coc-classobj-a)
+omap ac <Plug>(coc-classobj-a)
+
+" Use CTRL-S for selections ranges.
+" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings for CoCList
+" Show all diagnostics.
+nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+" Manage extensions.
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" Show commands.
+nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" Find symbol of current document.
+nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" Search workspace symbols.
+nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" Do default action for next item.
+nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" Do default action for previous item.
+nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" Resume latest coc list.
+nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 " }
 
@@ -150,54 +291,10 @@ autocmd FileType qf wincmd J
 
 " }
 
-" YoucompleteMe {
-
-let g:ycm_global_ycm_extra_conf='~/.vim/.ycm_extra_conf.py'
-
-" 展示错误诊断
-let g:ycm_show_diagnostics_ui=0
-" error符号
-" let g:ycm_error_symbol=''
-" warning符号
-" let g:ycm_warning_symbol=''
-" 最少按2个字符补全
-" let g:ycm_min_num_identifier_candidate_chars=2
-" 显示错误原因
-" let g:ycm_echo_current_diagnostic=1
-" 补全预览
-" let g:ycm_add_preview_to_completeopt=1
-" let g:ycm_autoclose_preview_window_after_completion=1
-" log等级
-" let g:ycm_server_log_level='info'
-
-" let g:ycm_collect_identifiers_from_comments_and_strings=1
-" let g:ycm_complete_in_strings=1
-" let g:ycm_key_invoke_completion='<c-z>'
-set completeopt=menu,menuone
-
-" noremap <c-z> <NOP>
-
-" let g:ycm_semantic_triggers= {
-			" \ 'c,cpp,python,java,go,erlang,perl': ['re!\w{2}'],
-			" \ 'cs,lua,javascript': ['re!\w{2}'],
-			" \ }
-
-" highlight PMenu ctermfg=0 ctermbg=242 guifg=black guibg=darkgrey
-" highlight PMenuSel ctermfg=242 ctermbg=8 guifg=darkgrey guibg=black
-
-" }
-
 " LeaderF {
 
 let g:Lf_ShortcutF='<C-P>'
 let g:Lf_ShowDevIcons=0
-nmap <leader>f :LeaderfFunction<CR>
-
-" }
-
-" taglist {
-
-" nmap <F3> :TagbarToggle<CR>
 
 " }
 
@@ -208,7 +305,7 @@ nmap <leader>n :NERDTreeToggle<CR>
 
 "设置NERDTree的宽度
 let NERDTreeWinSize=30
-let g:NERDTreeWinPos='right'
+let g:NERDTreeWinPos='left'
 
 let g:NERDTreeShowIgnoredStatus=1
 
@@ -284,13 +381,30 @@ let g:NERDSpaceDelims=1 " 注释后加空格
 
 " Compile {
 
-nmap <F6> :call CR()<CR>
-func! CR()
+command! -nargs=0 CodeForces :call RunCXXCodeForces()
+command! -nargs=0 CxxRun :call RunCPP()
+command! -nargs=0 ShellRun :call RunSH()
+
+" shell
+func! RunSH()
     exec "w"
-    exec "!g++ % -std=c++11 -o %<"
+    exec "!chmod a+x %"
+    exec "!./%"
+endfunc
+
+" CXX
+func! RunCPP()
+    exec "w"
+    exec "!g++ % -std=c++17 -o %<"
     exec "! ./%<"
 endfunc
 
+" codeforces
+func! RunCXXCodeForces()
+    exec "w"
+    exec "!g++ % -std=c++17 -o %<"
+    exec "! ./%< < in"
+endfunc
 " }
 
 " Code Style {
@@ -307,18 +421,6 @@ func SetCppFileConfig()
 
     " 用space替代tab的输入
     set expandtab  
-
-    " 谷歌C++代码风格检测
-    let g:clang_format#command='clang-format'
-    nmap <F7> :ClangFormat<CR>
-    nmap <C-]> :LspDefinition<CR>
-    " 自动format
-    " autocmd FileType c ClangFormatAutoEnable
-    let g:clang_format#detect_style_file=1
-
-    " ctags补全结构体
-    " set completeopt=longest,menu
-
 endfunc
 
 func SetCommonFileConfig()
