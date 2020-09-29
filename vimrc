@@ -19,7 +19,7 @@ set ignorecase
 set hlsearch
 
 " 启用256色
-set t_Co=256
+" set t_Co=16
 
 " 不兼容VI
 set nocompatible
@@ -76,25 +76,31 @@ nmap <leader>t :rightbelow vert term<CR>
 
 filetype off
 call plug#begin('~/.vim/plugged')
-    Plug 'scrooloose/nerdtree'                        " 目录树
-    Plug 'scrooloose/nerdcommenter'                   " 注释
-    Plug 'vim-airline/vim-airline'                    " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
-    Plug 'vim-airline/vim-airline-themes'             " 主题
-    Plug 'tpope/vim-fugitive'                         " 显示git分支
-    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' } " 全局搜索
-    Plug 'fatih/vim-go'                               " vim-go
-    Plug 'yianwillis/vimcdoc'                         " 中文文档
-    Plug 'jiangmiao/auto-pairs'                       " 括号匹配
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}   " 自动补全
+    Plug 'scrooloose/nerdtree'                          " 目录树
+    Plug 'scrooloose/nerdcommenter'                     " 注释
+    Plug 'vim-airline/vim-airline'                      " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
+    Plug 'vim-airline/vim-airline-themes'               " 主题
+    Plug 'tpope/vim-fugitive'                           " 显示git分支
+    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }   " 全局搜索
+    Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " vim-go
+    Plug 'yianwillis/vimcdoc'                           " 中文文档
+    Plug 'jiangmiao/auto-pairs'                         " 括号匹配
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}     " 补全
+    Plug 'octol/vim-cpp-enhanced-highlight'             " C++高亮
+    Plug 'mhinz/vim-startify'                           " 启动界面
 call plug#end()
 
-" coc.nvim {
+" coc-nvim {
 
 " TextEdit might fail if hidden is not set.
 set hidden
 
 " Some servers have issues with backup files, see #649.
+set nobackup
 set nowritebackup
+
+" Give more space for displaying messages.
+set cmdheight=1
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
@@ -160,7 +166,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
 
@@ -204,7 +210,7 @@ xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
 " Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
+" Requires 'textDocument/selectionRange' support of language server.
 nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
@@ -388,8 +394,7 @@ command! -nargs=0 ShellRun :call RunSH()
 " shell
 func! RunSH()
     exec "w"
-    exec "!chmod a+x %"
-    exec "!./%"
+    exec "!sh ./%"
 endfunc
 
 " CXX
