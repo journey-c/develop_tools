@@ -19,7 +19,7 @@ set ignorecase
 set hlsearch
 
 " 启用256色
-" set t_Co=16
+set t_Co=16
 
 " 不兼容VI
 set nocompatible
@@ -41,7 +41,7 @@ set encoding=utf-8
 set cursorline
 
 " 相对行号
-set relativenumber
+" set relativenumber
 
 " 使用鼠标
 " set mouse=a
@@ -67,8 +67,9 @@ if has("autocmd")
     au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
-" 右侧打开内置terminal
-nmap <leader>t :rightbelow vert term<CR>
+" <space> + t 下方打开终端
+nmap <leader>t :below term<CR>
+set termwinsize=6x0
 
 " }
 
@@ -79,15 +80,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'scrooloose/nerdtree'                          " 目录树
     Plug 'scrooloose/nerdcommenter'                     " 注释
     Plug 'vim-airline/vim-airline'                      " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
-    Plug 'vim-airline/vim-airline-themes'               " 主题
     Plug 'tpope/vim-fugitive'                           " 显示git分支
-    Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }   " 全局搜索
+    Plug 'Yggdroot/LeaderF', {'do': './install.sh' }    " 全局搜索
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " vim-go
     Plug 'yianwillis/vimcdoc'                           " 中文文档
-    Plug 'jiangmiao/auto-pairs'                         " 括号匹配
     Plug 'neoclide/coc.nvim', {'branch': 'release'}     " 补全
     Plug 'octol/vim-cpp-enhanced-highlight'             " C++高亮
     Plug 'mhinz/vim-startify'                           " 启动界面
+    Plug 'rhysd/vim-clang-format'                       " clang-format
 call plug#end()
 
 " coc-nvim {
@@ -226,7 +226,7 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
 " provide custom statusline: lightline.vim, vim-airline.
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " Show all diagnostics.
@@ -259,15 +259,19 @@ syntax  enable
 " 文件类型探测 使用缩进文件
 filetype plugin indent on
 
-" 设置背景色
-set  background=dark
+set background=dark
 
 " 设置主题
 colorscheme onedark
+let g:onedark_termcolors=16
+
+" 每行前边不显示~
+hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
 
 " Set the vertical split character to  a space (there is a single space after '\ ')
-set fillchars+=vert:\ 
-highlight VertSplit ctermbg=236 ctermfg=236
+" set fillchars+=vert:│
+set fillchars+=vert:┊
+" highlight VertSplit ctermbg=236 ctermfg=236
 
 " }
 
@@ -290,6 +294,9 @@ let g:go_highlight_operators=1
 let g:go_highlight_extra_types=1
 let g:go_highlight_methods=1
 let g:go_highlight_generate_tags=1
+let g:go_highlight_function_parameters = 1
+let g:go_highlight_build_constraints = 1
+
 let g:godef_split=2
 
 " push quickfix window always to the bottom
@@ -300,7 +307,7 @@ autocmd FileType qf wincmd J
 " LeaderF {
 
 let g:Lf_ShortcutF='<C-P>'
-let g:Lf_ShowDevIcons=0
+" let g:Lf_ShowDevIcons=0
 
 " }
 
@@ -315,8 +322,8 @@ let g:NERDTreeWinPos='left'
 
 let g:NERDTreeShowIgnoredStatus=1
 
-let g:NERDTreeDirArrowExpandable = ''
-let g:NERDTreeDirArrowCollapsible = ''
+let g:NERDTreeDirArrowExpandable = '+'
+let g:NERDTreeDirArrowCollapsible = '-'
 "  *        
 
 " }
@@ -348,35 +355,8 @@ let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.dirty='⚡'
 
-let g:airline_theme='jellybeans'
+" let g:airline_theme='afterglow'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
-
-" tabline
-let g:airline#extensions#tabline#enabled=1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-nmap <leader>- <Plug>AirlineSelectPrevTab
-nmap <leader>+ <Plug>AirlineSelectNextTab
-nmap <leader>q :bdelete<CR>
-nmap <tab> :bn<CR>
-
-nmap <leader>c :call CloseAllBuffersButCurrent()<CR>
-function! CloseAllBuffersButCurrent()
-    let curr = bufnr("%")
-    let last = bufnr("$")
-
-    if curr > 1    | silent! execute "1,".(curr-1)."bd"     | endif
-    if curr < last | silent! execute (curr+1).",".last."bd" | endif
-endfunction
-
 " }
 
 " nerdcommenter {
@@ -390,6 +370,7 @@ let g:NERDSpaceDelims=1 " 注释后加空格
 command! -nargs=0 CodeForces :call RunCXXCodeForces()
 command! -nargs=0 CxxRun :call RunCPP()
 command! -nargs=0 ShellRun :call RunSH()
+command! -nargs=0 DotBuild :call BuildDot()
 
 " shell
 func! RunSH()
@@ -400,15 +381,18 @@ endfunc
 " CXX
 func! RunCPP()
     exec "w"
-    exec "!g++ % -std=c++17 -o %<"
-    exec "! ./%<"
+    exec "!g++ % -std=c++17 -o %< && ./%<"
 endfunc
 
 " codeforces
 func! RunCXXCodeForces()
     exec "w"
-    exec "!g++ % -std=c++17 -o %<"
-    exec "! ./%< < in"
+    exec "!g++ % -std=c++17 -o %< && ./%< <in"
+endfunc
+
+" dot
+func! BuildDot()
+    exec "!dot % -T png -Gdpi=120 -o %<.png && open %<.png"
 endfunc
 " }
 
@@ -442,5 +426,15 @@ endfunc
 
 " }
 
+" gvim {
 
-nmap <F8> :!dot % -T png -Gsize=4,6\! -Gdpi=350 -o %<.png && open %<.png <CR>
+if has('gui_running')
+    set guifont=Hack\ Nerd\ Font\ Mono:h18
+    set guioptions-=m
+    set guioptions-=T
+    set guioptions-=r
+    set guioptions-=L
+    set lines=30 columns=90
+endif
+
+" }
