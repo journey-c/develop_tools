@@ -19,7 +19,7 @@ set ignorecase
 set hlsearch
 
 " 启用256色
-set t_Co=16
+set t_Co=256
 
 " 不兼容VI
 set nocompatible
@@ -40,6 +40,9 @@ set encoding=utf-8
 " set cursorcolumn
 set cursorline
 
+" 退格键
+set backspace=2
+
 " 相对行号
 " set relativenumber
 
@@ -54,6 +57,9 @@ set cursorline
 
 " 设置n个字自动换行
 " set textwidth=n
+
+" 去掉警报
+set vb
 
 set foldmethod=syntax
 
@@ -77,20 +83,20 @@ set termwinsize=6x0
 
 filetype off
 call plug#begin('~/.vim/plugged')
-    Plug 'scrooloose/nerdtree'                          " 目录树
     Plug 'scrooloose/nerdcommenter'                     " 注释
     Plug 'vim-airline/vim-airline'                      " Vim状态栏插件，包括显示行号，列号，文件类型，文件名，以及Git状态
     Plug 'tpope/vim-fugitive'                           " 显示git分支
     Plug 'Yggdroot/LeaderF', {'do': './install.sh' }    " 全局搜索
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }  " vim-go
     Plug 'yianwillis/vimcdoc'                           " 中文文档
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}     " 补全
-    Plug 'octol/vim-cpp-enhanced-highlight'             " C++高亮
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}     " LSP
     Plug 'mhinz/vim-startify'                           " 启动界面
     Plug 'rhysd/vim-clang-format'                       " clang-format
 call plug#end()
 
-" coc-nvim {
+" }
+
+" coc-vim {
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -259,18 +265,16 @@ syntax  enable
 " 文件类型探测 使用缩进文件
 filetype plugin indent on
 
-set background=dark
-
 " 设置主题
 colorscheme onedark
-let g:onedark_termcolors=16
+set termguicolors
 
 " 每行前边不显示~
 hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
 
 " Set the vertical split character to  a space (there is a single space after '\ ')
-" set fillchars+=vert:│
-set fillchars+=vert:┊
+" set fillchars+=vert:\│
+" set fillchars+=vert:┊
 " highlight VertSplit ctermbg=236 ctermfg=236
 
 " }
@@ -311,23 +315,6 @@ let g:Lf_ShortcutF='<C-P>'
 
 " }
 
-" NERDTree {
-
-nmap <leader>n :NERDTreeToggle<CR>
-" map <F4> :NERDTreeToggle<CR>
-
-"设置NERDTree的宽度
-let NERDTreeWinSize=30
-let g:NERDTreeWinPos='left'
-
-let g:NERDTreeShowIgnoredStatus=1
-
-let g:NERDTreeDirArrowExpandable = '+'
-let g:NERDTreeDirArrowCollapsible = '-'
-"  *        
-
-" }
-
 " vim-airline {
 
 if !exists('g:airline_symbols')
@@ -337,7 +324,7 @@ endif
 let airline#extensions#tabline#ignore_bufadd_pat =
             \ '\c\vgundo|undotree|vimfiler|tagbar|nerd_tree'
 let g:airline#extensions#tabline#keymap_ignored_filetypes =
-            \ ['vimfiler', 'nerdtree']
+            \ ['vimfiler']
 
 let g:airline#extensions#tabline#left_sep = ''
 let g:airline#extensions#tabline#left_alt_sep = ''
@@ -355,7 +342,9 @@ let g:airline_symbols.linenr = '☰'
 let g:airline_symbols.maxlinenr = ''
 let g:airline_symbols.dirty='⚡'
 
-" let g:airline_theme='afterglow'
+" let g:airline#extensions#tabline#enabled = 1
+
+let g:airline_theme='onedark'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 " }
 
@@ -381,13 +370,13 @@ endfunc
 " CXX
 func! RunCPP()
     exec "w"
-    exec "!g++ % -std=c++17 -o %< && ./%<"
+    exec "!g++ % -std=c++17 -o %< && ./%< && rm -f %<>"
 endfunc
 
 " codeforces
 func! RunCXXCodeForces()
     exec "w"
-    exec "!g++ % -std=c++17 -o %< && ./%< <in"
+    exec "!g++ % -std=c++17 -D JOURNEY -o %< && ./%< <in && rm -f %<"
 endfunc
 
 " dot
