@@ -6,6 +6,3 @@ exec 'source' '~/.config/nvim/config/plug.vim'
 
 " 加载主题
 exec 'source' '~/.config/nvim/config/theme.vim'
-
-" 加载快捷键
-exec 'source' '~/.config/nvim/config/keymap.vim'

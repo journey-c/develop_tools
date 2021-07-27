@@ -1,4 +1,4 @@
-call plug#begin('~/.config/nvim/config/plugins')
+call plug#begin('~/.config/nvim/plugins')
     Plug 'morhetz/gruvbox'                                          " 主题
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " LSP
     Plug 'vim-airline/vim-airline'                                  " 状态栏
