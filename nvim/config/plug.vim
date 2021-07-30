@@ -7,6 +7,7 @@ call plug#begin('~/.config/nvim/plugins')
     Plug 'preservim/nerdtree'                                       " 目录树
     Plug 'scrooloose/nerdcommenter'                                 " 注释
     Plug 'mhinz/vim-startify'                                       " 启动界面
+    Plug 'rust-lang/rust.vim'                                       " rust
 call plug#end()
 
 " --------------------------
