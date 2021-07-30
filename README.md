@@ -1,12 +1,12 @@
 # 开发工具仓库
 
 - [neovim](#neovim)
-  * [前置要求](#----)
-  * [安装](#--)
-    + [配置文件](#----)
-    + [插件管理工具](#------)
-    + [安装插件](#----)
-    + [安装LSP Client](#--lsp-client)
+  * [前置要求](#前置要求)
+  * [安装](#安装)
+    + [配置文件](#配置文件)
+    + [插件管理工具](#插件管理工具)
+    + [安装插件](#安装插件)
+    + [安装LSP_Client](#安装LSP_Client)
 
 ---
 
@@ -42,7 +42,7 @@ curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs \
 nvim +PlugInstall
 ```
 
-#### 安装LSP Client
+#### 安装LSP_Client
 **golang**
 要求已安装gopls
 ```bash
