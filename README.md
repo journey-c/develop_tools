@@ -24,8 +24,8 @@
 ### 安装
 #### 配置文件
 ```bash
-git clone https://github.com/journey-c/develop_config.git
-cd develop_config/nvim
+git clone https://github.com/journey-c/develop_tools.git
+cd develop_tools/nvim
 cp -r config ~/.config/nvim/
 cp init.vim ~/.config/nvim/
 ```
