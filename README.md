@@ -53,3 +53,8 @@ nvim +"CocInstall coc-go"
 ```bash
 nvim +"CocInstall coc-rls"
 ```
+**C/C++**
+要求已安装clangd
+```bash
+nvim +"CocInstall coc-clangd"
+```

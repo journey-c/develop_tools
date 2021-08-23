@@ -3,6 +3,9 @@ call plug#begin('~/.config/nvim/plugins')
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " LSP
     Plug 'vim-airline/vim-airline'                                  " 状态栏
     Plug 'Yggdroot/LeaderF', {'do': 'LeaderfInstallCExtension' }    " 全局搜索
+    Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+    Plug 'junegunn/fzf.vim'
+    Plug 'tpope/vim-fugitive'                                       " commit信息
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }              " vim-go
     Plug 'preservim/nerdtree'                                       " 目录树
     Plug 'scrooloose/nerdcommenter'                                 " 注释
