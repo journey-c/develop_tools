@@ -11,7 +11,11 @@ call plug#begin('~/.config/nvim/plugins')
     Plug 'scrooloose/nerdcommenter'                                 " 注释
     Plug 'mhinz/vim-startify'                                       " 启动界面
     Plug 'rust-lang/rust.vim'                                       " rust
+    Plug 'voldikss/vim-floaterm'                                    " popup 终端
 call plug#end()
+
+" 设置python workspace root
+autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 
 " --------------------------
 " |        coc-nvim        |
@@ -217,3 +221,15 @@ let g:go_doc_popup_window = 1
 " |      nerdtree          |
 " --------------------------
 nmap <leader>n :NERDTreeToggle<CR>
+
+" --------------------------
+" |      vim-floaterm      |
+" --------------------------
+" Compile
+let g:floaterm_title='terminal'
+let g:floaterm_autoclose=0
+command! -nargs=0 CodeForces :FloatermNew g++ % -std=c++17 -o %< && ./%< < in
+command! -nargs=0 CxxRun :FloatermNew g++ % -std=c++17 -o %< && ./%<
+command! -nargs=0 ShellRun :FloatermNew sh %
+" termainal
+nmap <leader>t :FloatermNew<CR>

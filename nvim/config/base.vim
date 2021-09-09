@@ -39,7 +39,6 @@ set expandtab
 " 设置leader键
 let mapleader="\<space>"
 
-
 " 文件头
 command! -nargs=0 SetTitle :call SetTitle()
 command! -nargs=0 SetCodeForces :call SetCodeForces()
@@ -66,21 +65,3 @@ func SetCodeForces()
     call setline(13, "}")
 endfunc
 
-" Compile
-command! -nargs=0 CodeForces :call RunCXXCodeForces()
-command! -nargs=0 CxxRun :call RunCPP()
-command! -nargs=0 ShellRun :call RunSH()
-func! RunSH()
-    exec "w"
-    exec "!sh ./%"
-endfunc
-func! RunCPP()
-    exec "w"
-    exec "!g++ % -std=c++17 -o %<"
-    exec "! ./%<"
-endfunc
-func! RunCXXCodeForces()
-    exec "w"
-    exec "!g++ % -std=c++17 -o %<"
-    exec "! ./%< < in"
-endfunc
