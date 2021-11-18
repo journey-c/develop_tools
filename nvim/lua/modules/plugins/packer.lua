@@ -3,8 +3,6 @@ local api  = vim.api
 local loop = vim.loop
 
 local global  = require('core.global')
-local ui      = require('modules.ui')
-local plugins = {}
 
 local packer_dir = global.data_dir .. "pack/packer/start/packer.nvim"
 local state = loop.fs_stat(packer_dir)
@@ -20,9 +18,10 @@ return require('packer').startup(function()
   use 'wbthomason/packer.nvim'
 
   use { 'morhetz/gruvbox' }
+
   use {
-      'kyazdani42/nvim-tree.lua',
-      requires = 'kyazdani42/nvim-web-devicons',
-      config = ui.nvim_tree(),
-  } 
+    'kyazdani42/nvim-tree.lua',
+    requires = 'kyazdani42/nvim-web-devicons',
+    config = function() require'nvim-tree'.setup {} end
+  }
 end)
