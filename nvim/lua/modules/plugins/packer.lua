@@ -1,27 +1,33 @@
-local cmd  = vim.cmd
-local api  = vim.api
-local loop = vim.loop
+local fn           = vim.fn
+local cmd          = vim.cmd
+local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
-local global  = require('core.global')
-
-local packer_dir = global.data_dir .. "pack/packer/start/packer.nvim"
-local state = loop.fs_stat(packer_dir)
-if not state then
-    local cmd = "!git clone https://github.com/wbthomason/packer.nvim " .. packer_dir
-    api.nvim_command(cmd)
+if fn.empty(fn.glob(install_path)) > 0 then
+    print("[ installing packer... ]")
+    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
 end
 
-cmd [[packadd packer.nvim]]
+local packer = require('packer')
 
-return require('packer').startup(function()
-  -- Packer can manage itself
-  use 'wbthomason/packer.nvim'
+packer.init({
+    compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
+})
 
-  use { 'morhetz/gruvbox' }
-
-  use {
-    'kyazdani42/nvim-tree.lua',
-    requires = 'kyazdani42/nvim-web-devicons',
-    config = function() require'nvim-tree'.setup {} end
-  }
+return packer.startup(function(use)
+    use 'wbthomason/packer.nvim'
+    
+    use { 
+        'morhetz/gruvbox',
+	config = function() require('modules.ui').set_colorscheme() end
+    }
+    
+    use {
+        'kyazdani42/nvim-tree.lua',
+        requires = 'kyazdani42/nvim-web-devicons',
+        config   = function() require('nvim-tree').setup {} end
+    }
+    
+    if packer_bootstrap then
+        packer.sync()
+    end
 end)

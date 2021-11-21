@@ -1,15 +1,13 @@
 local g    = vim.g
-local fn   = vim.fn
 local opt  = vim.opt
 local cmd  = vim.cmd
-local exec = vim.api.nvim_exec
-local map = vim.api.nvim_set_keymap
+local map  = vim.api.nvim_set_keymap
 
 function basic_configuration()
-	opt.cursorline     = true
-	opt.tabstop        = 4
-	opt.shiftwidth     = 4
-	opt.expandtab      = true
+    opt.cursorline     = true
+    opt.tabstop        = 4
+    opt.shiftwidth     = 4
+    opt.expandtab      = true
     opt.encoding       = 'utf-8'
     opt.ignorecase     = true
     opt.history        = 1024
@@ -25,26 +23,6 @@ function basic_configuration()
     endif
     ]]
 
-    -- getscriptPlugin.vim
-    -- gzip.vim
-    -- health.vim
-    -- logiPat.vim
-    -- man.vim
-    -- manpager.vim
-    -- matchit.vim
-    -- matchparen.vim
-    -- netrwPlugin.vim
-    -- rplugin.vim
-    -- rrhelper.vim
-    -- shada.vim
-    -- spellfile.vim
-    -- tarPlugin.vim
-    -- tohtml.vim
-    -- tutor.vim
-    -- vimballPlugin.vim
-    -- zipPlugin.vim
-
-    -- disable builtins plugins
     local disabled_built_ins = {
         "netrw",
         "netrwPlugin",
@@ -76,23 +54,21 @@ function plugins_management()
 end
 
 function key_maps()
-	g.mapleader = '<space>'
+    g.mapleader = ' '
 
-    cmd [[
-        nnoremap <C-n> :NvimTreeToggle<CR>
-        nnoremap <leader>r :NvimTreeRefresh<CR>
-        nnoremap <leader>n :NvimTreeFindFile<CR>
-    ]]
-    local map = vim.api.nvim_set_keymap
+    map('n', '<leader>n', ':NvimTreeToggle<CR>',   { noremap = true })
+    map('n', '<leader>f', ':NvimTreeFindFile<CR>', { noremap = true })
+end
+
+function dashboard_setting()
+    require('modules.ui')
 end
 
 function core()
-	basic_configuration()
-	plugins_management()
+    basic_configuration()
+    plugins_management()
     key_maps()
-    cmd [[
-        colorscheme gruvbox
-    ]]
+    dashboard_setting()
 end
 
 core()
