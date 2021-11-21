@@ -16,6 +16,8 @@ function basic_configuration()
     opt.number         = true
     opt.relativenumber = true
     opt.termguicolors  = true
+    opt.completeopt    = 'menu,menuone,noselect'
+    opt.swapfile       = false
 
     cmd [[
     if has("autocmd")
