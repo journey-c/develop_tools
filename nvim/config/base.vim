@@ -36,6 +36,8 @@ set shiftwidth=4
 " 用space替代tab的输入
 set expandtab
 
+set termguicolors
+
 " 设置leader键
 let mapleader="\<space>"
 
