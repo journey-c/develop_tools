@@ -37,26 +37,16 @@ return packer.startup(function(use)
     
     use { 
         'neovim/nvim-lspconfig',
+        requires = {
+            { 'hrsh7th/nvim-cmp'         },
+            { 'hrsh7th/cmp-nvim-lsp'     },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'L3MON4D3/LuaSnip'         },
+            { 'hrsh7th/cmp-vsnip'        },
+            { 'hrsh7th/vim-vsnip'        },
+        },
         config = function() require('modules.editor').nvim_lspconfig() end
     }
-
-    use {
-        'fatih/vim-go',
-        config = function() require('modules.editor').vim_go() end
-    }
-
---   use {
---       'hrsh7th/nvim-cmp'
---   }
---   use {
---       'hrsh7th/cmp-nvim-lsp'
---   }
---   use {
---       'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
---   }
---   use {
---       'L3MON4D3/LuaSnip' -- Snippets plugin
---   }
 
     if packer_bootstrap then
         packer.sync()
