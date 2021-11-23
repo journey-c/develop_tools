@@ -9,7 +9,6 @@ call plug#begin(globpath(stdpath('config'), 'plugins'))
     Plug 'kyazdani42/nvim-web-devicons' " for file icons
     Plug 'kyazdani42/nvim-tree.lua'
     Plug 'scrooloose/nerdcommenter'                                 " 注释
-    Plug 'mhinz/vim-startify'                                       " 启动界面
     Plug 'rust-lang/rust.vim'                                       " rust
     Plug 'voldikss/vim-floaterm'                                    " popup 终端
     Plug 'nvim-lua/plenary.nvim'                                    " 搜索

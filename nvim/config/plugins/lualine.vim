@@ -13,10 +13,8 @@ lua <<EOF
 
         sections = {
             lualine_a = {'mode'},
-            lualine_b = {{'branch'}, {'diff'}, {''}},
-            lualine_c = {
-                {gps.get_location, condition = gps.is_available}, {'lsp_progress'}
-            },
+            lualine_b = {'branch', 'diff', {'diagnostics', sources={'nvim_lsp', 'coc'}}},
+            lualine_c = {'filename', {gps.get_location, condition = gps.is_available}, {'lsp_progress'}},
             lualine_x = {
                 {
                     'diagnostics',
