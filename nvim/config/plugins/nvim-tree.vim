@@ -15,7 +15,7 @@ let g:nvim_tree_group_empty = 1
 let g:nvim_tree_disable_window_picker = 0
 let g:nvim_tree_symlink_arrow = ' >> '
 let g:nvim_tree_respect_buf_cwd = 0
-let g:nvim_tree_refresh_wait = 500
+let g:nvim_tree_refresh_wait = 10000
 let g:nvim_tree_show_icons = {
             \    'git': 0,
             \    'folders': 1,
