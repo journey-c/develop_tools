@@ -15,10 +15,10 @@ end
 EOF
 
 " 加载base
-exec 'source' globpath(stdpath('config'), "/config/base.vim")
+exec 'source' stdpath('config') . "/config/base.vim"
 
 " 加载插件
-exec 'source' globpath(stdpath('config'), "/config/plug.vim")
+exec 'source' stdpath('config') . "/config/plug.vim"
 
 " 加载主题
-exec 'source' globpath(stdpath('config'), "/config/theme.vim")
+exec 'source' stdpath('config') . "/config/theme.vim"

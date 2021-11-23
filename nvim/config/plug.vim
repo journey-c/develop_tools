@@ -1,4 +1,4 @@
-call plug#begin(globpath(stdpath('config'), 'plugins'))
+call plug#begin(stdpath('config') . '/plugins')
     Plug 'morhetz/gruvbox'                                          " 主题
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " LSP
     Plug 'nvim-lualine/lualine.nvim'
@@ -25,10 +25,10 @@ if g:bootstrap == 1
     PlugInstall
 endif
 
-exec 'source' globpath(stdpath('config'), '/config/plugins/coc-nvim.vim')
-exec 'source' globpath(stdpath('config'), '/config/plugins/vim-go.vim')
-exec 'source' globpath(stdpath('config'), '/config/plugins/nvim-tree.vim')
-exec 'source' globpath(stdpath('config'), '/config/plugins/telescope.vim')
-exec 'source' globpath(stdpath('config'), '/config/plugins/vim-floaterm.vim')
-exec 'source' globpath(stdpath('config'), '/config/plugins/lualine.vim')
-exec 'source' globpath(stdpath('config'), '/config/plugins/bufferline.vim')
+exec 'source' stdpath('config') . '/config/plugins/coc-nvim.vim'
+exec 'source' stdpath('config') . '/config/plugins/vim-go.vim'
+exec 'source' stdpath('config') . '/config/plugins/nvim-tree.vim'
+exec 'source' stdpath('config') . '/config/plugins/telescope.vim'
+exec 'source' stdpath('config') . '/config/plugins/vim-floaterm.vim'
+exec 'source' stdpath('config') . '/config/plugins/lualine.vim'
+exec 'source' stdpath('config') . '/config/plugins/bufferline.vim'
