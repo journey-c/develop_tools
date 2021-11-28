@@ -46,7 +46,7 @@ let g:nvim_tree_icons = {
             \}
 
 nnoremap <leader>n :NvimTreeToggle<CR>
-nnoremap <leader>f :NvimTreeFindFile<CR>
+nnoremap <leader>fn :NvimTreeFindFile<CR>
 
 " a list of groups can be found at `:help nvim_tree_highlight`
 highlight NvimTreeFolderIcon guibg=blue
