@@ -3,10 +3,14 @@ require('nvim-tree').setup {
     filters = {
         dotfiles = true,
     },
+    git = {
+        enable = false,
+        ignore = true,
+        timeout = 500,
+    },
 }
 EOF
 
-let g:nvim_tree_gitignore = 0
 let g:nvim_tree_quit_on_open = 0
 let g:nvim_tree_indent_markers = 1
 let g:nvim_tree_git_hl = 0
