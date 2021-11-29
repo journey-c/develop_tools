@@ -8,4 +8,4 @@ command! -nargs=0 CodeForces :FloatermNew g++ % -std=c++17 -o %< && ./%< < in
 command! -nargs=0 CxxRun :FloatermNew g++ % -std=c++17 -o %< && ./%<
 command! -nargs=0 ShellRun :FloatermNew sh %
 " termainal
-nmap <leader>t :FloatermNew<CR>
+nmap <leader>tn :FloatermNew<CR>

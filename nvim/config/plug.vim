@@ -1,20 +1,23 @@
 call plug#begin(stdpath('config').'/plugins')
-    Plug 'morhetz/gruvbox'                                          " 主题
+    " editer
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " LSP
-    Plug 'nvim-lualine/lualine.nvim'
-    Plug 'akinsho/bufferline.nvim'
-    Plug 'Yggdroot/LeaderF', {'do': 'LeaderfInstallCExtension' }    " 全局搜索
     Plug 'tpope/vim-fugitive'                                       " commit信息
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }              " vim-go
-    Plug 'kyazdani42/nvim-web-devicons' " for file icons
-    Plug 'kyazdani42/nvim-tree.lua'
     Plug 'scrooloose/nerdcommenter'                                 " 注释
     Plug 'rust-lang/rust.vim'                                       " rust
     Plug 'voldikss/vim-floaterm'                                    " popup 终端
+
+    " ui
+    Plug 'morhetz/gruvbox'                                          " 主题
+    Plug 'nvim-lualine/lualine.nvim'                                " 底部statusline
+    Plug 'akinsho/bufferline.nvim'                                  " 顶部bufferline
+    Plug 'kyazdani42/nvim-web-devicons'                             " 图标
+    Plug 'simrat39/symbols-outline.nvim'                            " 函数树
+    Plug 'kyazdani42/nvim-tree.lua'                                 " 文件树
     Plug 'nvim-lua/plenary.nvim'                                    " 搜索
-    Plug 'nvim-telescope/telescope.nvim'
-    Plug 'dstein64/vim-startuptime'
-    Plug 'glepnir/dashboard-nvim'
+    Plug 'nvim-telescope/telescope.nvim'                            " 模糊搜索
+    Plug 'dstein64/vim-startuptime'                                 " 启动时间
+    Plug 'glepnir/dashboard-nvim'                                   " 面板
 call plug#end()
 
 " 设置python workspace root
@@ -32,3 +35,4 @@ exec 'source' stdpath('config').'/config/plugins/vim-floaterm.vim'
 exec 'source' stdpath('config').'/config/plugins/lualine.vim'
 exec 'source' stdpath('config').'/config/plugins/bufferline.vim'
 exec 'source' stdpath('config').'/config/plugins/dashboard.vim'
+exec 'source' stdpath('config').'/config/plugins/symbols-outline.vim'
