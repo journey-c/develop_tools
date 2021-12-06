@@ -53,4 +53,4 @@ nnoremap <leader>n :NvimTreeToggle<CR>
 nnoremap <leader>fn :NvimTreeFindFile<CR>
 
 " a list of groups can be found at `:help nvim_tree_highlight`
-highlight NvimTreeFolderIcon guibg=blue
+"highlight NvimTreeFolderIcon guibg=blue

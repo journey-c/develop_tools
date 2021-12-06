@@ -20,6 +20,8 @@ call plug#begin(stdpath('config').'/plugins')
     Plug 'glepnir/dashboard-nvim'                                   " 面板
 call plug#end()
 
+colorscheme gruvbox
+
 " 设置python workspace root
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 

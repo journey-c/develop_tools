@@ -19,6 +19,3 @@ exec 'source' stdpath('config') . "/config/base.vim"
 
 " 加载插件
 exec 'source' stdpath('config') . "/config/plug.vim"
-
-" 加载主题
-exec 'source' stdpath('config') . "/config/theme.vim"
