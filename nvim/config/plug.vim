@@ -18,6 +18,7 @@ call plug#begin(stdpath('config').'/plugins')
     Plug 'nvim-telescope/telescope.nvim'                            " 模糊搜索
     Plug 'dstein64/vim-startuptime'                                 " 启动时间
     Plug 'glepnir/dashboard-nvim'                                   " 面板
+    Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
 colorscheme gruvbox
@@ -38,3 +39,4 @@ exec 'source' stdpath('config').'/config/plugins/lualine.vim'
 exec 'source' stdpath('config').'/config/plugins/bufferline.vim'
 exec 'source' stdpath('config').'/config/plugins/dashboard.vim'
 exec 'source' stdpath('config').'/config/plugins/symbols-outline.vim'
+exec 'source' stdpath('config').'/config/plugins/gitsigns.vim'
