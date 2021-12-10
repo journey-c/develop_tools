@@ -12,9 +12,9 @@ lua << EOF
             show_buffer_close_icons = true,
             show_buffer_icons = true,
             show_tab_indicators = true,
-            diagnostics = "nvim_lsp",
+            diagnostics = false,
             always_show_bufferline = true,
-            separator_style = "thin",
+            separator_style = "padded_slant",
             offsets = {
                 {
                     filetype = "NvimTree",
@@ -31,6 +31,9 @@ EOF
 " e.g. if you change the order of buffers :bnext and :bprevious will not respect the custom ordering
 nnoremap <silent>bn :BufferLineCycleNext<CR>
 nnoremap <silent>bp :BufferLineCyclePrev<CR>
+nnoremap <silent>bl :BufferLineCloseLeft<CR>
+nnoremap <silent>br :BufferLineCloseRight<CR>
+nnoremap <silent>bd :bd<CR>
 
 nnoremap <silent><leader>1 <Cmd>BufferLineGoToBuffer 1<CR>
 nnoremap <silent><leader>2 <Cmd>BufferLineGoToBuffer 2<CR>
