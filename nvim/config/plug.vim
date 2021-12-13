@@ -8,8 +8,8 @@ call plug#begin(stdpath('config').'/plugins')
     Plug 'voldikss/vim-floaterm'                                    " popup 终端
 
     " ui
-    "Plug 'morhetz/gruvbox'                                          " 主题
-    Plug 'arcticicestudio/nord-vim'                                 " 主题
+    Plug 'morhetz/gruvbox'                                          " 主题
+    "Plug 'arcticicestudio/nord-vim'                                 " 主题
     Plug 'nvim-lualine/lualine.nvim'                                " 底部statusline
     Plug 'akinsho/bufferline.nvim'                                  " 顶部bufferline
     Plug 'kyazdani42/nvim-web-devicons'                             " 图标
@@ -29,7 +29,7 @@ if g:bootstrap == 1
     PlugInstall
 endif
 
-colorscheme nord
+colorscheme gruvbox
 
 exec 'source' stdpath('config').'/config/plugins/coc-nvim.vim'
 exec 'source' stdpath('config').'/config/plugins/vim-go.vim'
