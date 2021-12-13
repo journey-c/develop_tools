@@ -8,7 +8,8 @@ call plug#begin(stdpath('config').'/plugins')
     Plug 'voldikss/vim-floaterm'                                    " popup 终端
 
     " ui
-    Plug 'morhetz/gruvbox'                                          " 主题
+    "Plug 'morhetz/gruvbox'                                          " 主题
+    Plug 'arcticicestudio/nord-vim'                                 " 主题
     Plug 'nvim-lualine/lualine.nvim'                                " 底部statusline
     Plug 'akinsho/bufferline.nvim'                                  " 顶部bufferline
     Plug 'kyazdani42/nvim-web-devicons'                             " 图标
@@ -21,14 +22,14 @@ call plug#begin(stdpath('config').'/plugins')
     Plug 'lewis6991/gitsigns.nvim'
 call plug#end()
 
-colorscheme gruvbox
-
 " 设置python workspace root
 autocmd FileType python let b:coc_root_patterns = ['.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 
 if g:bootstrap == 1
     PlugInstall
 endif
+
+colorscheme nord
 
 exec 'source' stdpath('config').'/config/plugins/coc-nvim.vim'
 exec 'source' stdpath('config').'/config/plugins/vim-go.vim'

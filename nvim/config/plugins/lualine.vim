@@ -7,7 +7,7 @@ custom_gruvbox.normal.c.bg = '#112233' -- rgb colors are supported
 require('lualine').setup {
     options = {
         icons_enabled = true,
-        theme = custom_gruvbox,
+        theme = "nord",
         disabled_filetypes = {},
         section_separators = {left = '', right = ''},
         component_separators = { left = '', right = ''}
