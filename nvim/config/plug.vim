@@ -1,5 +1,5 @@
 call plug#begin(stdpath('config').'/plugins')
-    " editer
+    " EDITOR
     Plug 'neoclide/coc.nvim', {'branch': 'release'}                 " LSP
     Plug 'tpope/vim-fugitive'                                       " commit信息
     Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }              " vim-go
@@ -7,9 +7,8 @@ call plug#begin(stdpath('config').'/plugins')
     Plug 'rust-lang/rust.vim'                                       " rust
     Plug 'voldikss/vim-floaterm'                                    " popup 终端
 
-    " ui
+    " UI
     Plug 'morhetz/gruvbox'                                          " 主题
-    "Plug 'arcticicestudio/nord-vim'                                 " 主题
     Plug 'nvim-lualine/lualine.nvim'                                " 底部statusline
     Plug 'akinsho/bufferline.nvim'                                  " 顶部bufferline
     Plug 'kyazdani42/nvim-web-devicons'                             " 图标
