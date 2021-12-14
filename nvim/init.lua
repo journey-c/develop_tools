@@ -9,4 +9,4 @@
 
 --]]
 
-require('core')
+require('init')

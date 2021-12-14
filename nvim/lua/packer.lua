@@ -6,6 +6,7 @@ local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 if fn.empty(fn.glob(install_path)) > 0 then
     print("[ installing packer... ]")
     packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    api.nvim_command("packadd packer.nvim")
 end
 
 local packer = require('packer')
@@ -19,7 +20,7 @@ return packer.startup(function(use)
     
     use { 
         'morhetz/gruvbox',
-	    config = function() require('modules.ui').colorscheme() end
+	    config = function() require('plugins.theme').conf() end
     }
     
     use {
@@ -30,23 +31,28 @@ return packer.startup(function(use)
                 filters = {
                     dotfiles = true,
                 },
+                git = {
+                    enable = false,
+                    ignore = true,
+                    timeout = 500,
+                },
             }
-            require('modules.ui').nvim_tree()
+            require('plugins.nvim_tree').conf()
         end
     }
     
-    use { 
-        'neovim/nvim-lspconfig',
-        requires = {
-            { 'hrsh7th/nvim-cmp'         },
-            { 'hrsh7th/cmp-nvim-lsp'     },
-            { 'saadparwaiz1/cmp_luasnip' },
-            { 'L3MON4D3/LuaSnip'         },
-            { 'hrsh7th/cmp-vsnip'        },
-            { 'hrsh7th/vim-vsnip'        },
-        },
-        config = function() require('modules.editor').nvim_lspconfig() end
-    }
+-- use { 
+--     'neovim/nvim-lspconfig',
+--     requires = {
+--         { 'hrsh7th/nvim-cmp'         },
+--         { 'hrsh7th/cmp-nvim-lsp'     },
+--         { 'saadparwaiz1/cmp_luasnip' },
+--         { 'L3MON4D3/LuaSnip'         },
+--         { 'hrsh7th/cmp-vsnip'        },
+--         { 'hrsh7th/vim-vsnip'        },
+--     },
+--     config = function() require('modules.editor').nvim_lspconfig() end
+-- }
 
     if packer_bootstrap then
         packer.sync()

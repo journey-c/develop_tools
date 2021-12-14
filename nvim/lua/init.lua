@@ -51,8 +51,7 @@ function basic_configuration()
 end
 
 function plugins_management()
-    local plugins = require('modules.plugins')
-    plugins.enable_plugins()
+    require('packer')
 end
 
 function key_maps()
@@ -62,15 +61,10 @@ function key_maps()
     map('n', '<leader>f', ':NvimTreeFindFile<CR>', { noremap = true })
 end
 
-function dashboard_setting()
-    require('modules.ui')
-end
-
 function core()
     basic_configuration()
     plugins_management()
     key_maps()
-    dashboard_setting()
 end
 
 core()
