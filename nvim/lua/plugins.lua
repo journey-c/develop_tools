@@ -145,6 +145,13 @@ return packer.startup(function(use)
     }
 
     use { 'tpope/vim-fugitive' }
+    use {
+        'RishabhRD/nvim-lsputils',
+        requires = {
+            { 'RishabhRD/popfix' }
+        },
+        config = function() require('plugins.nvim_lsputils').conf() end
+    }
 
     if packer_bootstrap then
         packer.sync()

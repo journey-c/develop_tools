@@ -4,18 +4,14 @@ function nvim_lspconfig.conf()
     if not packer_plugins['nvim-lspconfig'].loaded then
         vim.cmd [[packadd nvim-lspconfig]]
     end
-    
     if not packer_plugins['nvim-lsp-installer'].loaded then
         vim.cmd [[packadd nvim-lsp-installer]]
     end
-    
     if not packer_plugins['lsp_signature.nvim'].loaded then
         vim.cmd [[packadd lsp_signature.nvim]]
     end
-    
     local nvim_lsp = require('lspconfig')
     local lsp_installer = require('nvim-lsp-installer')
-    
     lsp_installer.settings {
         ui = {
             icons = {
@@ -25,9 +21,7 @@ function nvim_lspconfig.conf()
             }
         }
     }
-    
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    
     capabilities.textDocument.completion.completionItem.documentationFormat = {
         'markdown', 'plaintext'
     }
@@ -44,7 +38,6 @@ function nvim_lspconfig.conf()
     capabilities.textDocument.completion.completionItem.resolveSupport = {
         properties = {'documentation', 'detail', 'additionalTextEdits'}
     }
-    
     local function custom_attach()
         require('lsp_signature').on_attach({
             bind = true,
@@ -56,7 +49,6 @@ function nvim_lspconfig.conf()
             handler_opts = {"double"}
         })
     end
-    
     local function switch_source_header_splitcmd(bufnr, splitcmd)
         bufnr = nvim_lsp.util.validate_bufnr(bufnr)
         local params = {uri = vim.uri_from_bufnr(bufnr)}
@@ -70,10 +62,8 @@ function nvim_lspconfig.conf()
             vim.api.nvim_command(splitcmd .. ' ' .. vim.uri_to_fname(result))
         end)
     end
-    
     lsp_installer.on_server_ready(function(server)
         local opts = {}
-    
         if (server.name == "sumneko_lua") then
             opts.settings = {
                 Lua = {
@@ -114,7 +104,6 @@ function nvim_lspconfig.conf()
         opts.capabilities = capabilities
         opts.flags = {debounce_text_changes = 500}
         opts.on_attach = custom_attach
-    
         server:setup(opts)
     end)
     vim.fn.sign_define("DiagnosticSignError", {text = "", texthl = "GruvboxRed"})
@@ -122,5 +111,4 @@ function nvim_lspconfig.conf()
     vim.fn.sign_define("DiagnosticSignInformation", {text = "", texthl = "GruvboxBlue"})
     vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "GruvboxAqua"})
 end
-    
 return nvim_lspconfig
