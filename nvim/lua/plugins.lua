@@ -17,16 +17,16 @@ packer.init({
 
 return packer.startup(function(use)
     use 'wbthomason/packer.nvim'
-    
-    use { 
+
+    use {
         'morhetz/gruvbox',
 	    config = function() require('plugins.theme').conf() end
     }
-    
+
     use {
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
-        config   = function() 
+        config   = function()
             require('nvim-tree').setup {
                 filters = {
                     dotfiles = true,
@@ -40,8 +40,8 @@ return packer.startup(function(use)
             require('plugins.nvim_tree').conf()
         end
     }
-    
-    use { 
+
+    use {
         'neovim/nvim-lspconfig',
         opt = true,
         event = 'BufReadPre',
@@ -128,6 +128,22 @@ return packer.startup(function(use)
         event = {'BufRead', 'BufNewFile'},
         config = require('plugins.gitsigns').conf
     }
+
+    use {
+        'glepnir/dashboard-nvim',
+        opt = true,
+        event = "BufWinEnter",
+        config = function() require('plugins.dashboard').conf() end
+    }
+
+    use {
+        'lukas-reineke/format.nvim',
+        opt = true,
+        cmd = {"Format", "FormatWrite"},
+        config = function() require('plugins.format').conf() end
+    }
+
+    use { 'tpope/vim-fugitive' }
 
     if packer_bootstrap then
         packer.sync()
