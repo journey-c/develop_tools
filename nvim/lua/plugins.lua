@@ -1,7 +1,7 @@
 local fn           = vim.fn
 local cmd          = vim.cmd
-local api          = vim.api
 local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local packer_bootstrap
 
 if fn.empty(fn.glob(install_path)) > 0 then
     print("[ installing packer... ]")
@@ -110,6 +110,7 @@ return packer.startup(function(use)
 
     use {
         'simrat39/symbols-outline.nvim',
+        opt = true,
         cmd = {'SymbolsOutline', 'SymbolsOulineOpen'},
         config = function() require('plugins.symbols_outline').conf() end
     }

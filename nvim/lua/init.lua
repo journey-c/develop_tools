@@ -3,7 +3,7 @@ local opt  = vim.opt
 local cmd  = vim.cmd
 local map  = vim.api.nvim_set_keymap
 
-function basic_configuration()
+local basic_configuration = function()
     opt.cursorline     = true
     opt.tabstop        = 4
     opt.shiftwidth     = 4
@@ -50,11 +50,11 @@ function basic_configuration()
     end
 end
 
-function plugins_management()
+local plugins_management = function ()
     require('plugins')
 end
 
-function key_maps()
+local key_maps = function()
     local opts = { noremap=true, silent=true }
     g.mapleader = ' '
 
@@ -111,7 +111,7 @@ function key_maps()
     map('n', '<leader>tt', ':TroubleToggle<CR>', opts)
 end
 
-function core()
+local core = function()
     basic_configuration()
     plugins_management()
     key_maps()
