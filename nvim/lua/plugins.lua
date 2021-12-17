@@ -153,6 +153,29 @@ return packer.startup(function(use)
         config = function() require('plugins.nvim_lsputils').conf() end
     }
 
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            require("which-key").setup {}
+        end
+    }
+
+    use {
+        "ray-x/go.nvim",
+        opt = true,
+        ft = 'go',
+        config = function()
+            require('plugins.go_nvim').conf()
+        end,
+        requires = {
+            {'nvim-treesitter/nvim-treesitter'},
+            {'mfussenegger/nvim-dap'},
+            {'rcarriga/nvim-dap-ui'},
+            {'theHamsta/nvim-dap-virtual-text'},
+        },
+        after = 'nvim-lspconfig'
+    }
+
     if packer_bootstrap then
         packer.sync()
     end
