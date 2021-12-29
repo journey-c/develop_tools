@@ -61,6 +61,12 @@ return packer.startup(function(use)
     }
 
     use {
+        'L3MON4D3/LuaSnip',
+        config = function() require('plugins.luasnip').conf() end,
+        requires = 'rafamadriz/friendly-snippets'
+    }
+
+    use {
         'hrsh7th/nvim-cmp',
         opt = true,
         event = 'InsertEnter',
@@ -74,13 +80,6 @@ return packer.startup(function(use)
             {'hrsh7th/cmp-path', after = 'compe-tmux'},
             {'f3fora/cmp-spell', after = 'cmp-path'}
         }
-    }
-
-    use {
-        'L3MON4D3/LuaSnip',
-        after = 'nvim-cmp',
-        config = function() require('plugins.luasnip').conf() end,
-        requires = 'rafamadriz/friendly-snippets'
     }
 
     use {
@@ -161,18 +160,12 @@ return packer.startup(function(use)
     }
 
     use {
-        "ray-x/go.nvim",
+        "journey-c/nvim-go",
         opt = true,
         ft = 'go',
         config = function()
-            require('plugins.go_nvim').conf()
+            require('nvim-go').setup{}
         end,
-        requires = {
-            {'nvim-treesitter/nvim-treesitter'},
-            {'mfussenegger/nvim-dap'},
-            {'rcarriga/nvim-dap-ui'},
-            {'theHamsta/nvim-dap-virtual-text'},
-        },
         after = 'nvim-lspconfig'
     }
 
