@@ -1,14 +1,13 @@
-local g               = vim.g
 local symbols_outline = {}
 
 function symbols_outline.conf()
-    g.symbols_outline = {
+    require("symbols-outline").setup({
         highlight_hovered_item = true,
         show_guides = true,
-        auto_preview = true,
+        auto_preview = false,
         position = 'right',
         relative_width = true,
-        width = 40,
+        width = 50,
         auto_close = false,
         show_numbers = false,
         show_relative_numbers = false,
@@ -53,7 +52,7 @@ function symbols_outline.conf()
             Operator = {icon = "+", hl = "TSOperator"},
             TypeParameter = {icon = "𝙏", hl = "TSParameter"}
         }
-    }
+    })
 end
 
 return symbols_outline
