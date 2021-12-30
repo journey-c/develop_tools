@@ -17,7 +17,7 @@ local basic_configuration = function()
     opt.termguicolors  = true
     opt.completeopt    = 'menu,menuone,noselect'
     opt.swapfile       = false
-    opt.signcolumn     = 'number'
+    opt.signcolumn     = 'yes:1'
 
     cmd [[
     if has("autocmd")

@@ -26,7 +26,7 @@ function bufferline.conf()
                 }
             }
         }
-    } 
+    }
 end
 
 return bufferline
