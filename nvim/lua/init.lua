@@ -112,20 +112,21 @@ end
 
 local dashboard_config = function ()
     g.dashboard_footer_icon = ' '
-    g.dashboard_custom_header = {
-'════════════════════════════════════════════════════════════════',
-'                                                                ',
-'     ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗     ',
-'     ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║     ',
-'     ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║     ',
-'     ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║     ',
-'     ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║     ',
-'     ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝     ',
-'                                                                ',
-'════════════════════════════════════════════════════════════════',
-}
+    cmd [[
+let g:dashboard_custom_header =<< trim END
+════════════════════════════════════════════════════════════════
+                                                                
+     ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗     
+     ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║     
+     ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║     
+     ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║     
+     ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║     
+     ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝     
+                                                                
+════════════════════════════════════════════════════════════════
+END
+]]
     g.dashboard_default_executive = 'telescope'
-
     g.dashboard_custom_section = {
         change_colorscheme = {
             description = {" Scheme change              <space> s c "},
@@ -152,6 +153,7 @@ local dashboard_config = function ()
     g.floaterm_borderchars = '─│─│╭╮╯╰'
     cmd [[
     hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")
+    command! -nargs=0 Tig :FloatermNew tig
     command! -nargs=0 CodeForces :FloatermNew g++ % -std=c++17 -o %< && ./%< < in
     command! -nargs=0 CxxRun :FloatermNew g++ % -std=c++17 -o %< && ./%<
     command! -nargs=0 ShellRun :FloatermNew sh %
