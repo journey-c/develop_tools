@@ -18,10 +18,7 @@ packer.init({
 return packer.startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    use {
-        'morhetz/gruvbox',
-	    config = function() require('plugins.theme').conf() end
-    }
+    use { 'morhetz/gruvbox' }
 
     use {
         'kyazdani42/nvim-tree.lua',
@@ -76,8 +73,7 @@ return packer.startup(function(use)
             {'hrsh7th/cmp-buffer', after = 'cmp_luasnip'},
             {'hrsh7th/cmp-nvim-lsp', after = 'cmp-buffer'},
             {'hrsh7th/cmp-nvim-lua', after = 'cmp-nvim-lsp'},
-            {'andersevenrud/compe-tmux', branch = 'cmp', after = 'cmp-nvim-lua'},
-            {'hrsh7th/cmp-path', after = 'compe-tmux'},
+            {'hrsh7th/cmp-path', after = 'cmp-nvim-lua'},
             {'f3fora/cmp-spell', after = 'cmp-path'}
         }
     }
@@ -91,10 +87,7 @@ return packer.startup(function(use)
 
     use { 'scrooloose/nerdcommenter' }
 
-    use {
-        'voldikss/vim-floaterm',
-        config = function() require('plugins.vim_floaterm').conf() end
-    }
+    use { 'voldikss/vim-floaterm' }
 
     use {
         'hoob3rt/lualine.nvim',
@@ -132,8 +125,7 @@ return packer.startup(function(use)
     use {
         'glepnir/dashboard-nvim',
         opt = true,
-        event = "BufWinEnter",
-        config = function() require('plugins.dashboard').conf() end
+        event = "BufWinEnter"
     }
 
     use {

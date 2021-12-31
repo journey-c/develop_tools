@@ -100,21 +100,69 @@ local key_maps = function()
     map('n', '<leader>so', ':SymbolsOutline<CR>', opts)
 
     map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
-    map('n', '<leader>fg', '<cmd>Telescope live_grep<cr>', opts)
+    map('n', '<leader>fw', '<cmd>Telescope live_grep<cr>', opts)
     map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', opts)
     map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
 
-    map('n', '<Leader>tc', ':DashboardChangeColorscheme<CR>', opts)
-    map('n', '<Leader>fb', ':DashboardJumpMark<CR>', opts)
-    map('n', '<Leader>cf', ':DashboardNewFile<CR>', opts)
+    map('n', '<Leader>sc', ':DashboardChangeColorscheme<CR>', opts)
+    map('n', '<Leader>fe', ':DashboardFindHistory<CR>', opts)
 
     map('n', '<leader>tt', ':TroubleToggle<CR>', opts)
+end
+
+local dashboard_config = function ()
+    g.dashboard_footer_icon = ' '
+    g.dashboard_custom_header = {
+'════════════════════════════════════════════════════════════════',
+'                                                                ',
+'     ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗     ',
+'     ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║     ',
+'     ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║     ',
+'     ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║     ',
+'     ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║     ',
+'     ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝     ',
+'                                                                ',
+'════════════════════════════════════════════════════════════════',
+}
+    g.dashboard_default_executive = 'telescope'
+
+    g.dashboard_custom_section = {
+        change_colorscheme = {
+            description = {" Scheme change              <space> s c "},
+            command = "DashboardChangeColorscheme"
+        },
+        find_history = {
+            description = {" File history               <space> f e "},
+            command = "DashboardFindHistory"
+        },
+        find_file = {
+            description = {" File find                  <space> f f "},
+            command = "DashboardFindFile"
+        },
+        find_word = {
+            description = {" Word find                  <space> f w "},
+            command = "DashboardFindWord"
+        }
+    }
+
+    cmd [[ colorscheme gruvbox ]]
+
+    g.floaterm_title = 'terminal'
+    g.floaterm_autoclose = 0
+    g.floaterm_borderchars = '─│─│╭╮╯╰'
+    cmd [[
+    hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")
+    command! -nargs=0 CodeForces :FloatermNew g++ % -std=c++17 -o %< && ./%< < in
+    command! -nargs=0 CxxRun :FloatermNew g++ % -std=c++17 -o %< && ./%<
+    command! -nargs=0 ShellRun :FloatermNew sh %
+    ]]
 end
 
 local core = function()
     basic_configuration()
     plugins_management()
     key_maps()
+    dashboard_config()
 end
 
 core()
