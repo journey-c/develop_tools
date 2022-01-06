@@ -85,7 +85,7 @@ local key_maps = function()
     map('n', '<leader>bp', ':BufferLineCyclePrev<CR>', opts)
     map('n', '<leader>bl', ':BufferLineCloseLeft<CR>', opts)
     map('n', '<leader>br', ':BufferLineCloseRight<CR>', opts)
-    map('n', '<leader>bd', ':bd<CR>', opts)
+    map('n', '<leader>d', ':bd<CR>', opts)
 
     map('n', '<leader>1', '<Cmd>BufferLineGoToBuffer 1<CR>', opts)
     map('n', '<leader>2', '<Cmd>BufferLineGoToBuffer 2<CR>', opts)
