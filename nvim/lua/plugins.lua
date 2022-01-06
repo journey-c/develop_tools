@@ -85,7 +85,17 @@ return packer.startup(function(use)
         config = function() require('plugins.trouble').conf() end
     }
 
-    use { 'scrooloose/nerdcommenter' }
+    use {
+        'terrortylor/nvim-comment',
+        opt = false,
+        config = function()
+            require('nvim_comment').setup({
+                line_mapping = "<leader>cl",
+                operator_mapping = "<leader>c",
+            })
+        end
+    }
+
 
     use { 'voldikss/vim-floaterm' }
 
