@@ -11,15 +11,21 @@ function lualine.conf()
             theme = custom_gruvbox,
             disabled_filetypes = {},
             section_separators = {left = '', right = ''},
-            component_separators = { left = '', right = ''}
+            component_separators = '|',
         },
         sections = {
-            lualine_a = {'mode'},
-            lualine_b = {'branch', 'diff', {'diagnostics', sources={'nvim_diagnostic', 'coc'}}},
+            lualine_a = {
+                {'mode', separator = { left = '' }, right_padding = 2}
+            },
+            lualine_b = {
+                {'branch'},
+                {'diff'},
+                {'diagnostics', sources={'nvim_diagnostic'}}
+            },
             lualine_c = {'filename'},
-            lualine_x = {'encoding', 'fileformat', 'filetype'},
-            lualine_y = {'progress'},
-            lualine_z = {'location'}
+            lualine_x = {'encoding', 'fileformat'},
+            lualine_y = {'filetype', 'progress'},
+            lualine_z = {{'location', separator = { right = '' }, left_padding = 2}}
         },
         inactive_sections = {
             lualine_a = {},
@@ -31,7 +37,7 @@ function lualine.conf()
         },
         tabline = {},
         extensions = {}
-    } 
+    }
 end
 
 return lualine
