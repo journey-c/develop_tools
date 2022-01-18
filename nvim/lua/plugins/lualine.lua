@@ -1,7 +1,7 @@
 local lualine = {}
 
 function lualine.conf()
-   local custom_gruvbox = require'lualine.themes.gruvbox'
+    local custom_gruvbox = require'lualine.themes.gruvbox'
 
     custom_gruvbox.normal.c.bg = '#112233' -- rgb colors are supported
 
@@ -22,7 +22,7 @@ function lualine.conf()
                 {'diff'},
                 {'diagnostics', sources={'nvim_diagnostic'}}
             },
-            lualine_c = {'filename'},
+            lualine_c = {{'filename', path=1}},
             lualine_x = {'encoding', 'fileformat'},
             lualine_y = {'filetype', 'progress'},
             lualine_z = {{'location', separator = { right = '' }, left_padding = 2}}
