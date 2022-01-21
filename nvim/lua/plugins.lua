@@ -1,7 +1,6 @@
-local fn           = vim.fn
-local cmd          = vim.cmd
-local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-local packer_bootstrap
+local fn               = vim.fn
+local cmd              = vim.cmd
+local install_path     = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
     print("[ installing packer... ]")
@@ -9,16 +8,18 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 cmd [[packadd packer.nvim]]
-local packer = require('packer')
 
-packer.init({
+require('packer').init({
     compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
 })
 
-return packer.startup(function(use)
+return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
-    use { 'morhetz/gruvbox' }
+    use {
+        'morhetz/gruvbox',
+        config = [[vim.cmd('colorscheme gruvbox')]]
+    }
 
     use {
         'kyazdani42/nvim-tree.lua',
@@ -172,6 +173,6 @@ return packer.startup(function(use)
     }
 
     if packer_bootstrap then
-        packer.sync()
+        require('packer').sync()
     end
 end)

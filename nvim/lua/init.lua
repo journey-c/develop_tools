@@ -146,8 +146,6 @@ END
         }
     }
 
-    cmd [[ colorscheme gruvbox ]]
-
     g.floaterm_title = 'terminal'
     g.floaterm_autoclose = 0
     g.floaterm_borderchars = '─│─│╭╮╯╰'
