@@ -18,7 +18,10 @@ return require('packer').startup(function(use)
 
     use {
         'morhetz/gruvbox',
-        config = [[vim.cmd('colorscheme gruvbox')]]
+        config = [[
+            vim.cmd('colorscheme gruvbox')
+            vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
+            ]]
     }
 
     use {
