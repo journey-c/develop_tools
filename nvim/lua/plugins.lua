@@ -13,7 +13,7 @@ require('packer').init({
     compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
 })
 
-return require('packer').startup(function(use)
+return require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
     use {
@@ -178,4 +178,11 @@ return require('packer').startup(function(use)
     if packer_bootstrap then
         require('packer').sync()
     end
-end)
+end,
+config = {
+  display = {
+    open_fn = function()
+      return require('packer.util').float({ border = 'single' })
+    end
+  }
+}})
