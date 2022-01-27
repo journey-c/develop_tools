@@ -150,6 +150,8 @@ END
     g.floaterm_autoclose = 0
     g.floaterm_borderchars = '─│─│╭╮╯╰'
     cmd [[
+    let g:floaterm_width = 0.9
+    let g:floaterm_height = 0.9
     hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")
     command! -nargs=0 Tig :FloatermNew tig
     command! -nargs=0 CodeForces :FloatermNew g++ % -std=c++17 -o %< && ./%< < in
