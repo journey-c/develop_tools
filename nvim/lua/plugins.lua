@@ -143,7 +143,7 @@ return require('packer').startup({function(use)
     }
 
     use {
-        'lukas-reineke/format.nvim',
+        'lukas-reineke/lsp-format.nvim',
         opt = true,
         cmd = {"Format", "FormatWrite"},
         config = function() require('plugins.format').conf() end

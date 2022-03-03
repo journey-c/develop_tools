@@ -64,7 +64,10 @@ function nvim_cmp.conf()
         },
         -- You can set mappings if you want
         mapping = {
-            ['<CR>'] = cmp.mapping.confirm({select = true}),
+            ['<CR>'] = cmp.mapping.confirm{
+                behavior = cmp.ConfirmBehavior.Replace,
+                select = true,
+            },
             ['<C-p>'] = cmp.mapping.select_prev_item(),
             ['<C-n>'] = cmp.mapping.select_next_item(),
             ['<C-d>'] = cmp.mapping.scroll_docs(-4),
