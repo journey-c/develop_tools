@@ -1,7 +1,8 @@
-local g    = vim.g
-local opt  = vim.opt
-local cmd  = vim.cmd
-local map  = vim.api.nvim_set_keymap
+local g   = vim.g
+local opt = vim.opt
+local cmd = vim.cmd
+local api = vim.api
+local map = vim.api.nvim_set_keymap
 
 local basic_configuration = function()
     opt.cursorline     = true
@@ -52,6 +53,7 @@ end
 
 local plugins_management = function ()
     require('plugins')
+    require('custom_plugins')
 end
 
 local key_maps = function()
@@ -77,7 +79,7 @@ local key_maps = function()
     map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    map('n', '<leader>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+    api.nvim_command [[ command! -nargs=0 Format lua vim.lsp.buf.formatting()<CR> ]]
 
     map('n',  '<leader>tn', ':FloatermNew<CR>', opts)
 

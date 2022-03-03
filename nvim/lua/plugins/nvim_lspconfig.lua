@@ -45,6 +45,7 @@ function nvim_lspconfig.conf()
             floating_window = true,
             fix_pos = true,
             hint_enable = true,
+            hint_prefix = " ",
             hi_parameter = "Search",
             handler_opts = {"double"}
         })

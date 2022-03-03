@@ -142,13 +142,6 @@ return require('packer').startup({function(use)
         event = "BufWinEnter"
     }
 
-    use {
-        'lukas-reineke/lsp-format.nvim',
-        opt = true,
-        cmd = {"Format", "FormatWrite"},
-        config = function() require('plugins.format').conf() end
-    }
-
     use { 'tpope/vim-fugitive' }
     use {
         'RishabhRD/nvim-lsputils',
@@ -163,16 +156,6 @@ return require('packer').startup({function(use)
         config = function()
             require("which-key").setup {}
         end
-    }
-
-    use {
-        "journey-c/nvim-go",
-        opt = true,
-        ft = 'go',
-        config = function()
-            require('nvim-go').setup{}
-        end,
-        after = 'nvim-lspconfig'
     }
 
     if packer_bootstrap then
