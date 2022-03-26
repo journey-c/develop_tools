@@ -13,6 +13,9 @@ function nvim_cmp.conf()
 
     local cmp = require('cmp')
     cmp.setup {
+        completion = {
+            autocomplete = false, -- disable auto-completion.
+        },
         formatting = {
             format = function(entry, vim_item)
                 local lspkind_icons = {
@@ -117,9 +120,33 @@ function nvim_cmp.conf()
             {name = 'nvim_lsp'}, {name = 'nvim_lua'}, {name = 'luasnip'},
             {name = 'buffer'}, {name = 'path'}, {name = 'spell'},
             {name = 'tmux'}, {name = 'orgmode'}
-            -- {name = 'cmp_tabnine'},
         }
     }
+    _G.vimrc = _G.vimrc or {}
+    _G.vimrc.cmp = _G.vimrc.cmp or {}
+    _G.vimrc.cmp.lsp = function()
+        cmp.complete({
+            config = {
+                sources = {
+                    { name = 'nvim_lsp' }
+                }
+            }
+        })
+    end
+    _G.vimrc.cmp.snippet = function()
+        cmp.complete({
+            config = {
+                sources = {
+                    { name = 'luasnip' }
+            }
+        }
+    })
+end
+
+vim.cmd([[
+  inoremap <C-x><C-o> <Cmd>lua vimrc.cmp.lsp()<CR>
+  inoremap <C-x><C-s> <Cmd>lua vimrc.cmp.snippet()<CR>
+]])
 end
 
 return nvim_cmp
