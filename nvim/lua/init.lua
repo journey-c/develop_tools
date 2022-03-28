@@ -6,6 +6,7 @@ local map = vim.api.nvim_set_keymap
 
 local basic_configuration = function()
     opt.cursorline     = true
+    opt.scrolloff      = 5
     opt.tabstop        = 4
     opt.shiftwidth     = 4
     opt.expandtab      = true
