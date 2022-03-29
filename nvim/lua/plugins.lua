@@ -136,11 +136,11 @@ return require('packer').startup({function(use)
         config = require('plugins.gitsigns').conf
     }
 
-    use {
-        'glepnir/dashboard-nvim',
-        opt = true,
-        event = "BufWinEnter"
-    }
+    -- use {
+    --     'glepnir/dashboard-nvim',
+    --     opt = true,
+    --     event = "BufWinEnter"
+    -- }
 
     use { 'tpope/vim-fugitive' }
 

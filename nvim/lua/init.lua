@@ -52,6 +52,27 @@ local basic_configuration = function()
     end
 end
 
+local disable_distribution_plugins= function()
+    vim.g.loaded_gzip              = 1
+    vim.g.loaded_tar               = 1
+    vim.g.loaded_tarPlugin         = 1
+    vim.g.loaded_zip               = 1
+    vim.g.loaded_zipPlugin         = 1
+    vim.g.loaded_getscript         = 1
+    vim.g.loaded_getscriptPlugin   = 1
+    vim.g.loaded_vimball           = 1
+    vim.g.loaded_vimballPlugin     = 1
+    vim.g.loaded_matchit           = 1
+    vim.g.loaded_matchparen        = 1
+    vim.g.loaded_2html_plugin      = 1
+    vim.g.loaded_logiPat           = 1
+    vim.g.loaded_rrhelper          = 1
+    vim.g.loaded_netrw             = 1
+    vim.g.loaded_netrwPlugin       = 1
+    vim.g.loaded_netrwSettings     = 1
+    vim.g.loaded_netrwFileHandlers = 1
+end
+
 local plugins_management = function ()
     require('plugins')
     require('custom_plugins')
@@ -114,41 +135,6 @@ local key_maps = function()
 end
 
 local dashboard_config = function ()
-    g.dashboard_footer_icon = ' '
-    cmd [[
-let g:dashboard_custom_header =<< trim END
-════════════════════════════════════════════════════════════════
-                                                                
-     ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗     
-     ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║     
-     ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║     
-     ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║     
-     ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║     
-     ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝     
-                                                                
-════════════════════════════════════════════════════════════════
-END
-]]
-    g.dashboard_default_executive = 'telescope'
-    g.dashboard_custom_section = {
-        change_colorscheme = {
-            description = {" Scheme change              <space> s c "},
-            command = "DashboardChangeColorscheme"
-        },
-        find_history = {
-            description = {" File history               <space> f e "},
-            command = "DashboardFindHistory"
-        },
-        find_file = {
-            description = {" File find                  <space> f f "},
-            command = "DashboardFindFile"
-        },
-        find_word = {
-            description = {" Word find                  <space> f w "},
-            command = "DashboardFindWord"
-        }
-    }
-
     g.floaterm_title = 'terminal'
     g.floaterm_autoclose = 0
     g.floaterm_borderchars = '─│─│╭╮╯╰'
@@ -165,6 +151,7 @@ end
 
 local core = function()
     basic_configuration()
+    disable_distribution_plugins()
     plugins_management()
     key_maps()
     dashboard_config()
