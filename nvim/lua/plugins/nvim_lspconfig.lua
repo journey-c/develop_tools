@@ -81,6 +81,18 @@ function nvim_lspconfig.conf()
                 }
             }
         elseif (server.name == "clangd") then
+            opts.cmd = {
+                "clangd",
+                "--background-index",
+                "-j=8",
+                "--query-driver=/usr/bin/clang++",
+                "--clang-tidy",
+                "--clang-tidy-checks=performance-*,bugprone-*",
+                "--all-scopes-completion",
+                "--completion-style=detailed",
+                "--header-insertion=iwyu",
+                "--pch-storage=disk",
+            }
             opts.commands = {
                 ClangdSwitchSourceHeader = {
                     function()
