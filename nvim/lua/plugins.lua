@@ -17,16 +17,11 @@ return require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        "doums/darcula",
+        'morhetz/gruvbox',
         config = [[
-            vim.cmd('colorscheme darcula')
+            vim.cmd('colorscheme gruvbox')
             vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
             ]]
-        -- 'morhetz/gruvbox',
-        -- config = [[
-        --     vim.cmd('colorscheme gruvbox')
-        --     vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
-        --     ]]
     }
 
     use {
