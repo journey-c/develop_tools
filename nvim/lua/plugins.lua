@@ -17,11 +17,18 @@ return require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'morhetz/gruvbox',
+        'mhartington/oceanic-next',
         config = [[
-            vim.cmd('colorscheme gruvbox')
+            vim.cmd('colorscheme OceanicNext')
             vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
+            vim.cmd('hi VertSplit ctermfg=235 guifg=#212026 cterm=None gui=None guibg=NONE ctermbg=NONE')
             ]]
+        -- 'morhetz/gruvbox',
+        -- config = [[
+        --     vim.cmd('set background=light')
+        --     vim.cmd('colorscheme gruvbox')
+        --     vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
+        --     ]]
     }
 
     use {

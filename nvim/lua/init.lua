@@ -147,6 +147,17 @@ local dashboard_config = function ()
     command! -nargs=0 CxxRun :FloatermNew g++ % -std=c++17 -o %< && ./%<
     command! -nargs=0 ShellRun :FloatermNew sh %
     ]]
+
+    vim.opt.fillchars = {
+        vert = "┃",
+        fold = "⠀",
+        eob = " ", -- suppress ~ at EndOfBuffer
+        diff = "⣿", -- alternatives = ⣿ ░ ─ ╱
+        msgsep = "‾",
+        foldopen = "▾",
+        foldsep = "│",
+        foldclose = "▸",
+    }
 end
 
 local core = function()
