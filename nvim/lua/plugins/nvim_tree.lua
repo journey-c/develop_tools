@@ -2,7 +2,6 @@ local g         = vim.g
 local nvim_tree = {}
 
 function nvim_tree.conf()
-    g.nvim_tree_indent_markers = 1
     g.nvim_tree_git_hl = 0
     g.nvim_tree_root_folder_modifier = ':~'
     g.nvim_tree_group_empty = 1

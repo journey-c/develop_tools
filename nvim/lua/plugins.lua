@@ -17,11 +17,16 @@ return require('packer').startup({function(use)
     use 'wbthomason/packer.nvim'
 
     use {
-        'morhetz/gruvbox',
+        "doums/darcula",
         config = [[
-            vim.cmd('colorscheme gruvbox')
+            vim.cmd('colorscheme darcula')
             vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
             ]]
+        -- 'morhetz/gruvbox',
+        -- config = [[
+        --     vim.cmd('colorscheme gruvbox')
+        --     vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
+        --     ]]
     }
 
     use {
@@ -37,6 +42,16 @@ return require('packer').startup({function(use)
                     ignore = true,
                     timeout = 500,
                 },
+                renderer = {
+                    indent_markers = {
+                        enable = true,
+                        icons = {
+                            corner = "└ ",
+                            edge = "│ ",
+                            none = "  ",
+                        },
+                    }
+                }
             }
             require('plugins.nvim_tree').conf()
         end

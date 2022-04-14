@@ -4,7 +4,7 @@ function bufferline.conf()
    require('bufferline').setup {
         options = {
             numbers = "ordinal",
-            modified_icon = '✥',
+            modified_icon = '●',
             buffer_close_icon = '',
             left_trunc_marker = "",
             right_trunc_marker = "",
@@ -16,7 +16,7 @@ function bufferline.conf()
             show_tab_indicators = true,
             diagnostics = false,
             always_show_bufferline = true,
-            separator_style = "padded_slant",
+            separator_style = "thin",
             offsets = {
                 {
                     filetype = "NvimTree",
