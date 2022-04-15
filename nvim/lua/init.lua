@@ -5,21 +5,21 @@ local api = vim.api
 local map = vim.api.nvim_set_keymap
 
 local basic_configuration = function()
-    opt.cursorline     = true
-    opt.scrolloff      = 5
-    opt.tabstop        = 4
-    opt.shiftwidth     = 4
-    opt.expandtab      = true
-    opt.encoding       = 'utf-8'
-    opt.ignorecase     = true
-    opt.history        = 1024
-    opt.lazyredraw     = true
-    opt.smartindent    = true
-    opt.number         = true
-    opt.termguicolors  = true
-    opt.completeopt    = 'menu,menuone,noselect'
-    opt.swapfile       = false
-    opt.signcolumn     = 'yes:1'
+    opt.cursorline    = true
+    opt.scrolloff     = 5
+    opt.tabstop       = 4
+    opt.shiftwidth    = 4
+    opt.expandtab     = true
+    opt.encoding      = 'utf-8'
+    opt.ignorecase    = true
+    opt.history       = 1024
+    opt.lazyredraw    = true
+    opt.smartindent   = true
+    opt.number        = true
+    opt.termguicolors = true
+    opt.completeopt   = 'menu,menuone,noselect'
+    opt.swapfile      = false
+    opt.signcolumn    = 'yes:1'
 
     cmd [[
     if has("autocmd")
@@ -52,7 +52,7 @@ local basic_configuration = function()
     end
 end
 
-local disable_distribution_plugins= function()
+local disable_distribution_plugins = function()
     vim.g.loaded_gzip              = 1
     vim.g.loaded_tar               = 1
     vim.g.loaded_tarPlugin         = 1
@@ -73,16 +73,16 @@ local disable_distribution_plugins= function()
     vim.g.loaded_netrwFileHandlers = 1
 end
 
-local plugins_management = function ()
+local plugins_management = function()
     require('plugins')
     require('custom_plugins')
 end
 
 local key_maps = function()
-    local opts = { noremap=true, silent=true }
+    local opts = { noremap = true, silent = true }
     g.mapleader = ' '
 
-    map('n', '<leader>n', ':NvimTreeToggle<CR>',   opts)
+    map('n', '<leader>n', ':NvimTreeToggle<CR>', opts)
     map('n', '<leader>fn', ':NvimTreeFindFile<CR>', opts)
 
     map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
@@ -103,7 +103,7 @@ local key_maps = function()
     map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
     api.nvim_command [[ command! -nargs=0 Format lua vim.lsp.buf.formatting()<CR> ]]
 
-    map('n',  '<leader>tn', ':FloatermNew<CR>', opts)
+    map('n', '<leader>tn', ':FloatermNew<CR>', opts)
 
     map('n', '<leader>bn', ':BufferLineCycleNext<CR>', opts)
     map('n', '<leader>bp', ':BufferLineCyclePrev<CR>', opts)
@@ -134,7 +134,7 @@ local key_maps = function()
     map('n', '<leader>tt', ':TroubleToggle<CR>', opts)
 end
 
-local dashboard_config = function ()
+local dashboard_config = function()
     g.floaterm_title = 'terminal'
     g.floaterm_autoclose = 0
     g.floaterm_borderchars = '─│─│╭╮╯╰'
@@ -150,13 +150,7 @@ local dashboard_config = function ()
 
     vim.opt.fillchars = {
         vert = "┃",
-        fold = "⠀",
         eob = " ", -- suppress ~ at EndOfBuffer
-        diff = "⣿", -- alternatives = ⣿ ░ ─ ╱
-        msgsep = "━",
-        foldopen = "▾",
-        foldsep = "┃",
-        foldclose = "▸",
     }
 end
 

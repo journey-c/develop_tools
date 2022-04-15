@@ -1,10 +1,10 @@
-local fn               = vim.fn
-local cmd              = vim.cmd
-local install_path     = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
+local fn           = vim.fn
+local cmd          = vim.cmd
+local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
     print("[ installing packer... ]")
-    packer_bootstrap = fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
 end
 
 cmd [[packadd packer.nvim]]
@@ -13,7 +13,7 @@ require('packer').init({
     compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
 })
 
-return require('packer').startup({function(use)
+return require('packer').startup({ function(use)
     use 'wbthomason/packer.nvim'
 
     use {
@@ -22,14 +22,7 @@ return require('packer').startup({function(use)
             vim.cmd('colorscheme OceanicNext')
             vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
             vim.cmd('hi VertSplit ctermfg=235 guifg=#212026 cterm=None gui=None guibg=NONE ctermbg=NONE')
-            vim.cmd('hi MsgSeparator ctermfg=235 guifg=#51afef cterm=None gui=None guibg=NONE ctermbg=NONE')
             ]]
-        -- 'morhetz/gruvbox',
-        -- config = [[
-        --     vim.cmd('set background=light')
-        --     vim.cmd('colorscheme gruvbox')
-        --     vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
-        --     ]]
     }
 
     use {
@@ -91,19 +84,19 @@ return require('packer').startup({function(use)
         event = 'InsertEnter',
         config = function() require('plugins.nvim_cmp').conf() end,
         requires = {
-            {'saadparwaiz1/cmp_luasnip', after = 'LuaSnip'},
-            {'hrsh7th/cmp-buffer', after = 'cmp_luasnip'},
-            {'hrsh7th/cmp-nvim-lsp', after = 'cmp-buffer'},
-            {'hrsh7th/cmp-nvim-lua', after = 'cmp-nvim-lsp'},
-            {'hrsh7th/cmp-path', after = 'cmp-nvim-lua'},
-            {'f3fora/cmp-spell', after = 'cmp-path'}
+            { 'saadparwaiz1/cmp_luasnip', after = 'LuaSnip' },
+            { 'hrsh7th/cmp-buffer', after = 'cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp', after = 'cmp-buffer' },
+            { 'hrsh7th/cmp-nvim-lua', after = 'cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-path', after = 'cmp-nvim-lua' },
+            { 'f3fora/cmp-spell', after = 'cmp-path' }
         }
     }
 
     use {
         'folke/trouble.nvim',
         opt = true,
-        cmd = {"Trouble", "TroubleToggle", "TroubleRefresh"},
+        cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
         config = function() require('plugins.trouble').conf() end
     }
 
@@ -136,11 +129,11 @@ return require('packer').startup({function(use)
     use {
         'simrat39/symbols-outline.nvim',
         opt = true,
-        cmd = {'SymbolsOutline', 'SymbolsOulineOpen'},
+        cmd = { 'SymbolsOutline', 'SymbolsOulineOpen' },
         config = function() require('plugins.symbols_outline').conf() end
     }
 
-    use {'nvim-lua/plenary.nvim' }
+    use { 'nvim-lua/plenary.nvim' }
 
     use {
         'nvim-telescope/telescope.nvim',
@@ -151,7 +144,7 @@ return require('packer').startup({function(use)
     use {
         'lewis6991/gitsigns.nvim',
         opt = true,
-        event = {'BufRead', 'BufNewFile'},
+        event = { 'BufRead', 'BufNewFile' },
         config = require('plugins.gitsigns').conf
     }
 
@@ -175,9 +168,9 @@ return require('packer').startup({function(use)
     end
 end,
 config = {
-  display = {
-    open_fn = function()
-      return require('packer.util').float({ border = 'single' })
-    end
-  }
-}})
+    display = {
+        open_fn = function()
+            return require('packer.util').float({ border = 'single' })
+        end
+    }
+} })
