@@ -22,6 +22,7 @@ return require('packer').startup({function(use)
             vim.cmd('colorscheme OceanicNext')
             vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
             vim.cmd('hi VertSplit ctermfg=235 guifg=#212026 cterm=None gui=None guibg=NONE ctermbg=NONE')
+            vim.cmd('hi MsgSeparator ctermfg=235 guifg=#51afef cterm=None gui=None guibg=NONE ctermbg=NONE')
             ]]
         -- 'morhetz/gruvbox',
         -- config = [[

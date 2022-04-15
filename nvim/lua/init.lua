@@ -153,9 +153,9 @@ local dashboard_config = function ()
         fold = "⠀",
         eob = " ", -- suppress ~ at EndOfBuffer
         diff = "⣿", -- alternatives = ⣿ ░ ─ ╱
-        msgsep = "‾",
+        msgsep = "━",
         foldopen = "▾",
-        foldsep = "│",
+        foldsep = "┃",
         foldclose = "▸",
     }
 end
