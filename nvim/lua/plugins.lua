@@ -94,13 +94,6 @@ return require('packer').startup({ function(use)
     }
 
     use {
-        'folke/trouble.nvim',
-        opt = true,
-        cmd = { "Trouble", "TroubleToggle", "TroubleRefresh" },
-        config = function() require('plugins.trouble').conf() end
-    }
-
-    use {
         'terrortylor/nvim-comment',
         opt = false,
         config = function()
@@ -148,18 +141,22 @@ return require('packer').startup({ function(use)
         config = require('plugins.gitsigns').conf
     }
 
-    -- use {
-    --     'glepnir/dashboard-nvim',
-    --     opt = true,
-    --     event = "BufWinEnter"
-    -- }
-
     use { 'tpope/vim-fugitive' }
 
     use {
         "folke/which-key.nvim",
         config = function()
             require("which-key").setup {}
+        end
+    }
+
+    use {
+        "onsails/diaglist.nvim",
+        config = function()
+            require("diaglist").init({
+                debug = false, 
+                debounce_ms = 150,
+            })
         end
     }
 
