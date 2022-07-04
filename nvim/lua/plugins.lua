@@ -29,26 +29,6 @@ return require('packer').startup({ function(use)
         'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
         config   = function()
-            require('nvim-tree').setup {
-                filters = {
-                    dotfiles = true,
-                },
-                git = {
-                    enable = false,
-                    ignore = true,
-                    timeout = 500,
-                },
-                renderer = {
-                    indent_markers = {
-                        enable = true,
-                        icons = {
-                            corner = "└ ",
-                            edge = "│ ",
-                            none = "  ",
-                        },
-                    }
-                }
-            }
             require('plugins.nvim_tree').conf()
         end
     }
