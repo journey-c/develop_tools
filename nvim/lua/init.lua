@@ -131,7 +131,7 @@ local key_maps = function()
     map('n', '<Leader>sc', ':DashboardChangeColorscheme<CR>', opts)
     map('n', '<Leader>fe', ':DashboardFindHistory<CR>', opts)
 
-    map('n', '<leader>da', "<Cmd>lua require('diaglist').open_buffer_diagnostics()<CR>", opts)
+    map('n', '<leader>ga', "<Cmd>lua require('diaglist').open_all_diagnostics()<CR>", opts)
 end
 
 local dashboard_config = function()
