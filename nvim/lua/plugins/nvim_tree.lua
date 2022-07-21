@@ -15,9 +15,9 @@ function nvim_tree.conf()
             indent_markers = {
                 enable = true,
                 icons = {
-                    corner = "└ ",
-                    edge = "│ ",
-                    none = "  ",
+                    corner = "└",
+                    edge = "│",
+                    none = "",
                 },
             },
             highlight_git = false,
