@@ -5,21 +5,23 @@ local api = vim.api
 local map = vim.api.nvim_set_keymap
 
 local basic_configuration = function()
-    opt.cursorline    = true
-    opt.scrolloff     = 5
-    opt.tabstop       = 4
-    opt.shiftwidth    = 4
-    opt.expandtab     = true
-    opt.encoding      = 'utf-8'
-    opt.ignorecase    = true
-    opt.history       = 1024
-    opt.lazyredraw    = true
-    opt.smartindent   = true
-    opt.number        = true
-    opt.termguicolors = true
-    opt.completeopt   = 'menu,menuone,noselect'
-    opt.swapfile      = false
-    opt.signcolumn    = 'yes:1'
+    opt.cursorline     = true
+    opt.scrolloff      = 5
+    opt.tabstop        = 4
+    opt.shiftwidth     = 4
+    opt.expandtab      = true
+    opt.encoding       = 'utf-8'
+    opt.ignorecase     = true
+    opt.history        = 1024
+    opt.lazyredraw     = true
+    opt.smartindent    = true
+    opt.number         = true
+    opt.relativenumber = true
+    opt.termguicolors  = true
+    opt.completeopt    = 'menu,menuone,noselect'
+    opt.swapfile       = false
+    opt.signcolumn     = 'yes:1'
+    opt.colorcolumn    = '80'
 
     cmd [[
     if has("autocmd")

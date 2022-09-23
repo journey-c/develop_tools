@@ -134,7 +134,7 @@ return require('packer').startup({ function(use)
         "onsails/diaglist.nvim",
         config = function()
             require("diaglist").init({
-                debug = false, 
+                debug = false,
                 debounce_ms = 150,
             })
         end
