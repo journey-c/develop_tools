@@ -1,4 +1,6 @@
-lua << EOF
+local gitsigns = {}
+
+function gitsigns.conf()
     require("gitsigns").setup {
         signs = {
             add = {hl = "GitGutterAdd", text = "▋"},
@@ -8,4 +10,6 @@ lua << EOF
             changedelete = {hl = "GitGutterChange", text = "▎"}
         }
     }
-EOF
+end
+
+return gitsigns
