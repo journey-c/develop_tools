@@ -93,13 +93,6 @@ return require('packer').startup({ function(use)
     }
 
     use {
-        'akinsho/bufferline.nvim',
-        event = 'BufRead',
-        branch = 'main',
-        config = function() require('plugins.bufferline').conf() end
-    }
-
-    use {
         'simrat39/symbols-outline.nvim',
         opt = true,
         cmd = { 'SymbolsOutline', 'SymbolsOulineOpen' },
