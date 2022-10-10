@@ -104,7 +104,7 @@ local key_maps = function()
     map('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
     map('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
     map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    api.nvim_command [[ command! -nargs=0 Format lua vim.lsp.buf.formatting()<CR> ]]
+    api.nvim_command [[ command! -nargs=0 Format lua vim.lsp.buf.format { async = true }<CR> ]]
 
     map('n', '<leader>tn', ':FloatermNew<CR>', opts)
 
