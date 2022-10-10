@@ -22,6 +22,7 @@ local basic_configuration = function()
     opt.swapfile       = false
     opt.signcolumn     = 'yes:1'
     opt.colorcolumn    = '80'
+    opt.mouse          = ''
 
     cmd [[
     if has("autocmd")
