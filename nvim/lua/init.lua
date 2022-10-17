@@ -23,6 +23,7 @@ local basic_configuration = function()
     opt.signcolumn     = 'yes:1'
     opt.colorcolumn    = '80'
     opt.mouse          = ''
+    opt.splitbelow     = true
 
     cmd [[
     if has("autocmd")
@@ -106,7 +107,7 @@ local key_maps = function()
     map('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
     api.nvim_command [[ command! -nargs=0 Format lua vim.lsp.buf.format { async = true }<CR> ]]
 
-    map('n', '<leader>tn', ':FloatermNew<CR>', opts)
+    map('n', '<leader>tn', ':split | terminal<CR>', opts)
 
     map('n', '<leader>bn', ':BufferLineCycleNext<CR>', opts)
     map('n', '<leader>bp', ':BufferLineCyclePrev<CR>', opts)

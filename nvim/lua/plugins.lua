@@ -20,7 +20,6 @@ return require('packer').startup({ function(use)
         'mhartington/oceanic-next',
         config = [[
             vim.cmd('colorscheme OceanicNext')
-            vim.cmd('hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")')
             vim.cmd('hi VertSplit ctermfg=235 guifg=#212026 cterm=None gui=None guibg=NONE ctermbg=NONE')
             ]]
     }
@@ -83,9 +82,6 @@ return require('packer').startup({ function(use)
             })
         end
     }
-
-
-    use { 'voldikss/vim-floaterm' }
 
     use {
         'hoob3rt/lualine.nvim',
