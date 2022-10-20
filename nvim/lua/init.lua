@@ -146,10 +146,10 @@ local dashboard_config = function()
     let g:floaterm_width = 0.9
     let g:floaterm_height = 0.9
     hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")
-    command! -nargs=0 Tig :FloatermNew tig
-    command! -nargs=0 CodeForces :FloatermNew g++ % -std=c++17 -o %< && ./%< < in
-    command! -nargs=0 CxxRun :FloatermNew g++ % -std=c++17 -o %< && ./%<
-    command! -nargs=0 ShellRun :FloatermNew sh %
+    command! -nargs=0 Tig :terminal tig
+    command! -nargs=0 CodeForces :split | terminal g++ % -std=c++17 -o %< && ./%< < in <CR>
+    command! -nargs=0 CxxRun :split | terminal g++ % -std=c++17 -o %< && ./%< <CR>
+    command! -nargs=0 ShellRun :split | terminal sh % <CR>
     ]]
 
     vim.opt.fillchars = {
