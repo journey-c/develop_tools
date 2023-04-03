@@ -162,6 +162,13 @@ local core = function()
     basic_configuration()
     disable_distribution_plugins()
     plugins_management()
+    -- listen to user event and trigger lualine refresh
+    vim.cmd([[
+    augroup lualine_augroup
+        autocmd!
+        autocmd User LspProgressStatusUpdated lua require("lualine").refresh()
+    augroup END
+    ]])
     key_maps()
     dashboard_config()
 end

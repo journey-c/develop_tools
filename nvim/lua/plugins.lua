@@ -33,16 +33,13 @@ return require('packer').startup({ function(use)
     }
 
     use {
-        'neovim/nvim-lspconfig',
-        opt = true,
+        "neovim/nvim-lspconfig",
         event = 'BufReadPre',
-        config = function() require('plugins.nvim_lspconfig').conf() end
-    }
-
-    use {
-        'williamboman/nvim-lsp-installer',
-        opt = true,
-        after = 'nvim-lspconfig'
+        requires = {
+            { "williamboman/mason.nvim" },
+            { "williamboman/mason-lspconfig.nvim" }
+        },
+        config = function() require('plugins.lspconfig').conf() end
     }
 
     use {
@@ -84,8 +81,18 @@ return require('packer').startup({ function(use)
     }
 
     use {
+         'linrongbin16/lsp-progress.nvim',
+         config = function() require('plugins.lualine-lsp-progress').conf() end,
+    }
+
+    use {
         'hoob3rt/lualine.nvim',
-        config = function() require('plugins.lualine').conf() end
+        event = { 'VimEnter' },
+        dependencies = {
+            'nvim-tree/nvim-web-devicons',
+            'linrongbin16/lsp-progress.nvim',
+        },
+        config = function() require('plugins.lualine').conf() end,
     }
 
     use {
