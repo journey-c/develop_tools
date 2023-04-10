@@ -39,18 +39,16 @@ return require('packer').startup({
             event = 'BufReadPre',
             requires = {
                 { "williamboman/mason.nvim" },
-                { "williamboman/mason-lspconfig.nvim" }
-            },
-            dependencies = {
+                { "williamboman/mason-lspconfig.nvim" },
                 {
                     "SmiteshP/nvim-navbuddy",
-                    dependencies = {
+                    requires = {
                         "SmiteshP/nvim-navic",
                         "MunifTanjim/nui.nvim"
-                    },
-                    opts = { lsp = { auto_attach = true } }
-                }
+                    }
+                },
             },
+            opts = { lsp = { auto_attach = true } },
             config = function() require('plugins.lspconfig').conf() end
         }
 
