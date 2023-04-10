@@ -15,42 +15,31 @@ function _M.conf()
     capabilities.textDocument.completion.completionItem.commitCharactersSupport =
         true
     capabilities.textDocument.completion.completionItem.tagSupport = {
-        valueSet = {1}
+        valueSet = { 1 }
     }
     capabilities.textDocument.completion.completionItem.resolveSupport = {
-        properties = {'documentation', 'detail', 'additionalTextEdits'}
+        properties = { 'documentation', 'detail', 'additionalTextEdits' }
     }
-    local function switch_source_header_splitcmd(bufnr, splitcmd)
-        bufnr = lspconfig.util.validate_bufnr(bufnr)
-        local params = {uri = vim.uri_from_bufnr(bufnr)}
-        vim.lsp.buf_request(bufnr, 'textDocument/switchSourceHeader', params,
-                            function(err, result)
-            if err then error(tostring(err)) end
-            if not result then
-                print("Corresponding file can’t be determined")
-                return
-            end
-            vim.api.nvim_command(splitcmd .. ' ' .. vim.uri_to_fname(result))
-        end)
-    end
-    vim.fn.sign_define("DiagnosticSignError", {text = "", texthl = "GruvboxRed"})
-    vim.fn.sign_define("DiagnosticSignWarn", {text = "", texthl = "GruvboxYellow"})
-    vim.fn.sign_define("DiagnosticSignInformation", {text = "", texthl = "GruvboxBlue"})
-    vim.fn.sign_define("DiagnosticSignHint", {text = "", texthl = "GruvboxAqua"})
+    vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "GruvboxRed" })
+    vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "GruvboxYellow" })
+    vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "GruvboxBlue" })
+    vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "GruvboxAqua" })
 
     require("mason").setup()
-    require("mason-lspconfig").setup{
+    require("mason-lspconfig").setup {
         ensure_installed = {
             "lua_ls",
             "gopls",
             "clangd",
         },
     }
+    local navbuddy = require("nvim-navbuddy")
     require("mason-lspconfig").setup_handlers({
-        function (server_name)
-            require("lspconfig")[server_name].setup{
-                on_attach = function ()
-                    require('lsp_signature').on_attach({ -- 参数提示
+        function(server_name)
+            require("lspconfig")[server_name].setup {
+                on_attach = function(client, bufnr)
+                    require('lsp_signature').on_attach({
+                        -- 参数提示
                         bind = true,
                         use_lspsaga = false,
                         floating_window = true,
@@ -58,13 +47,14 @@ function _M.conf()
                         hint_enable = true,
                         hint_prefix = " ",
                         hi_parameter = "Search",
-                        handler_opts = {"double"}
+                        handler_opts = { "double" }
                     })
+                    navbuddy.attach(client, bufnr) -- 函数树
                 end
             }
         end,
         -- Next, you can provide targeted overrides for specific servers.
-        ["lua_ls"] = function ()
+        ["lua_ls"] = function()
             lspconfig.lua_ls.setup {
                 settings = {
                     Lua = {
@@ -74,17 +64,8 @@ function _M.conf()
                     }
                 }
             }
-        end,
-        ["clangd"] = function ()
-            lspconfig.clangd.setup {
-                cmd = {
-                    "clangd",
-                    "--header-insertion=never",
-                    "--all-scopes-completion",
-                    "--completion-style=detailed",
-                }
-            }
         end
     })
 end
-return _M 
+
+return _M

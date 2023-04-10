@@ -1,10 +1,10 @@
-local g   = vim.g
-local opt = vim.opt
-local cmd = vim.cmd
-local api = vim.api
-local map = vim.api.nvim_set_keymap
+local g                            = vim.g
+local opt                          = vim.opt
+local cmd                          = vim.cmd
+local api                          = vim.api
+local map                          = vim.api.nvim_set_keymap
 
-local basic_configuration = function()
+local basic_configuration          = function()
     opt.cursorline     = true
     opt.scrolloff      = 5
     opt.tabstop        = 4
@@ -77,12 +77,12 @@ local disable_distribution_plugins = function()
     vim.g.loaded_netrwFileHandlers = 1
 end
 
-local plugins_management = function()
+local plugins_management           = function()
     require('plugins')
     require('custom_plugins')
 end
 
-local key_maps = function()
+local key_maps                     = function()
     local opts = { noremap = true, silent = true }
     g.mapleader = ' '
 
@@ -138,7 +138,7 @@ local key_maps = function()
     map('n', '<leader>ga', "<Cmd>lua require('diaglist').open_all_diagnostics()<CR>", opts)
 end
 
-local dashboard_config = function()
+local dashboard_config             = function()
     g.floaterm_title = 'terminal'
     g.floaterm_autoclose = 0
     g.floaterm_borderchars = '─│─│╭╮╯╰'
@@ -158,7 +158,7 @@ local dashboard_config = function()
     }
 end
 
-local core = function()
+local core                         = function()
     basic_configuration()
     disable_distribution_plugins()
     plugins_management()

@@ -7,8 +7,8 @@ function nvim_cmp.conf()
     local has_words_before = function()
         local line, col = unpack(vim.api.nvim_win_get_cursor(0))
         return col ~= 0 and
-                   vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(
-                       col, col):match("%s") == nil
+            vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(
+                col, col):match("%s") == nil
     end
 
     local cmp = require('cmp')
@@ -47,8 +47,8 @@ function nvim_cmp.conf()
                 }
                 -- load lspkind icons
                 vim_item.kind = string.format("%s %s",
-                                              lspkind_icons[vim_item.kind],
-                                              vim_item.kind)
+                    lspkind_icons[vim_item.kind],
+                    vim_item.kind)
 
                 vim_item.menu = ({
                     -- cmp_tabnine = "[TN]",
@@ -67,7 +67,7 @@ function nvim_cmp.conf()
         },
         -- You can set mappings if you want
         mapping = {
-            ['<CR>'] = cmp.mapping.confirm{
+            ['<CR>'] = cmp.mapping.confirm {
                 behavior = cmp.ConfirmBehavior.Replace,
                 select = true,
             },
@@ -84,15 +84,14 @@ function nvim_cmp.conf()
                 else
                     fallback()
                 end
-            end, {"i", "s"}),
-
+            end, { "i", "s" }),
             ["<S-Tab>"] = cmp.mapping(function(fallback)
                 if cmp.visible() then
                     cmp.select_prev_item()
                 else
                     fallback()
                 end
-            end, {"i", "s"}),
+            end, { "i", "s" }),
             ["<C-h>"] = function(fallback)
                 if require("luasnip").jumpable(-1) then
                     vim.fn.feedkeys(t("<Plug>luasnip-jump-prev"), "")
@@ -117,9 +116,9 @@ function nvim_cmp.conf()
 
         -- You should specify your *installed* sources.
         sources = {
-            {name = 'nvim_lsp'}, {name = 'nvim_lua'}, {name = 'luasnip'},
-            {name = 'buffer'}, {name = 'path'}, {name = 'spell'},
-            {name = 'tmux'}, {name = 'orgmode'}
+            { name = 'nvim_lsp' }, { name = 'nvim_lua' }, { name = 'luasnip' },
+            { name = 'buffer' }, { name = 'path' }, { name = 'spell' },
+            { name = 'tmux' }, { name = 'orgmode' }
         }
     }
     _G.vimrc = _G.vimrc or {}
@@ -138,12 +137,12 @@ function nvim_cmp.conf()
             config = {
                 sources = {
                     { name = 'luasnip' }
+                }
             }
-        }
-    })
-end
+        })
+    end
 
-vim.cmd([[
+    vim.cmd([[
   inoremap <C-x><C-o> <Cmd>lua vimrc.cmp.lsp()<CR>
   inoremap <C-x><C-s> <Cmd>lua vimrc.cmp.snippet()<CR>
 ]])

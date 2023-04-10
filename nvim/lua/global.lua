@@ -1,8 +1,8 @@
-local g    = vim.g
-local fn   = vim.fn
-local opt  = vim.opt
-local cmd  = vim.cmd
-local exec = vim.api.nvim_exec
+local g      = vim.g
+local fn     = vim.fn
+local opt    = vim.opt
+local cmd    = vim.cmd
+local exec   = vim.api.nvim_exec
 
 local global = {}
 
