@@ -33,11 +33,10 @@ function _M.conf()
             "clangd",
         },
     }
-    local navbuddy = require("nvim-navbuddy")
     require("mason-lspconfig").setup_handlers({
         function(server_name)
             require("lspconfig")[server_name].setup {
-                on_attach = function(client, bufnr)
+                on_attach = function()
                     require('lsp_signature').on_attach({
                         -- 参数提示
                         bind = true,
@@ -49,7 +48,6 @@ function _M.conf()
                         hi_parameter = "Search",
                         handler_opts = { "double" }
                     })
-                    navbuddy.attach(client, bufnr) -- 函数树
                 end
             }
         end,

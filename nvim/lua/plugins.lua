@@ -40,16 +40,14 @@ return require('packer').startup({
             requires = {
                 { "williamboman/mason.nvim" },
                 { "williamboman/mason-lspconfig.nvim" },
-                {
-                    "SmiteshP/nvim-navbuddy",
-                    requires = {
-                        "SmiteshP/nvim-navic",
-                        "MunifTanjim/nui.nvim"
-                    }
-                },
             },
             opts = { lsp = { auto_attach = true } },
             config = function() require('plugins.lspconfig').conf() end
+        }
+
+        use {
+            "simrat39/symbols-outline.nvim",
+            config = function() require("symbols-outline").setup() end
         }
 
         use {
