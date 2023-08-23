@@ -9,3 +9,8 @@
 
 --]]
 require('init')
+vim.cmd [[
+set termguicolors
+set t_Co=16
+let base16colorspace=256
+]]

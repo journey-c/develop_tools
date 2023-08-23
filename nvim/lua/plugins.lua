@@ -19,9 +19,9 @@ return require('packer').startup({
         use 'wbthomason/packer.nvim'
 
         use {
-            'mhartington/oceanic-next',
+            'doums/darcula',
             config = [[
-            vim.cmd('colorscheme OceanicNext')
+            vim.cmd('colorscheme darcula')
             vim.cmd('hi VertSplit ctermfg=235 guifg=#212026 cterm=None gui=None guibg=NONE ctermbg=NONE')
             ]]
         }
@@ -86,21 +86,6 @@ return require('packer').startup({
                     operator_mapping = "<leader>c",
                 })
             end
-        }
-
-        use {
-            'linrongbin16/lsp-progress.nvim',
-            config = function() require('plugins.lualine-lsp-progress').conf() end,
-        }
-
-        use {
-            'hoob3rt/lualine.nvim',
-            event = { 'VimEnter' },
-            dependencies = {
-                'nvim-tree/nvim-web-devicons',
-                'linrongbin16/lsp-progress.nvim',
-            },
-            config = function() require('plugins.lualine').conf() end,
         }
 
         use { 'nvim-lua/plenary.nvim' }
