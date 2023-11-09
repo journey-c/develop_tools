@@ -4,7 +4,7 @@ local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
     print("[ installing packer... ]")
-    packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
+    Packer_bootstrap = fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim',
         install_path })
 end
 
@@ -19,9 +19,9 @@ return require('packer').startup({
         use 'wbthomason/packer.nvim'
 
         use {
-            'doums/darcula',
+            "ellisonleao/gruvbox.nvim",
             config = [[
-            vim.cmd('colorscheme darcula')
+            vim.cmd('colorscheme gruvbox')
             vim.cmd('hi VertSplit ctermfg=235 guifg=#212026 cterm=None gui=None guibg=NONE ctermbg=NONE')
             ]]
         }
@@ -122,7 +122,7 @@ return require('packer').startup({
             end
         }
 
-        if packer_bootstrap then
+        if Packer_bootstrap then
             require('packer').sync()
         end
     end,

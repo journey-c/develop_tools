@@ -5,7 +5,6 @@ local uv      = vim.loop
 local tools   = {}
 
 local packages = {
-      fillstruct    = 'github.com/davidrjenni/reftools/cmd/fillstruct@master',
       gomodifytags  = 'github.com/fatih/gomodifytags@latest',
       gotest        = 'github.com/cweill/gotests/gotests@master'
 }
