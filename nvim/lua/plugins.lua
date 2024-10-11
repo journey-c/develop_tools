@@ -98,9 +98,18 @@ return require('packer').startup({
 
         use {
             'lewis6991/gitsigns.nvim',
-            opt = true,
-            event = { 'BufRead', 'BufNewFile' },
-            config = require('plugins.gitsigns').conf
+            config = function()
+                require("gitsigns").setup {
+                    signs = {
+                        add          = { text = '▋' },
+                        change       = { text = '▋' },
+                        delete       = { text = '▋' },
+                        topdelete    = { text = '▔' },
+                        changedelete = { text = '▎' },
+                        untracked    = { text = '┆' },
+                    },
+                }
+            end
         }
 
         use { 'tpope/vim-fugitive' }

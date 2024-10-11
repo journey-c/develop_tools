@@ -8,6 +8,7 @@
   ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝
 
 --]]
+
 require('init')
 vim.cmd [[
 set termguicolors
