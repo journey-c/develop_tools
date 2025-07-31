@@ -46,8 +46,16 @@ return require('packer').startup({
         }
 
         use {
-            "simrat39/symbols-outline.nvim",
-            config = function() require("symbols-outline").setup() end
+            "hedyhli/outline.nvim",
+            config = function()
+                -- Example mapping to toggle outline
+                vim.keymap.set("n", "<leader>so", "<cmd>Outline<CR>",
+                    { desc = "Toggle Outline" })
+
+                require("outline").setup {
+                    -- Your setup opts here (leave empty to use defaults)
+                }
+            end,
         }
 
         use {

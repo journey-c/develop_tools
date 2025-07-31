@@ -20,10 +20,24 @@ function _M.conf()
     capabilities.textDocument.completion.completionItem.resolveSupport = {
         properties = { 'documentation', 'detail', 'additionalTextEdits' }
     }
-    vim.fn.sign_define("DiagnosticSignError", { text = "", texthl = "GruvboxRed" })
-    vim.fn.sign_define("DiagnosticSignWarn", { text = "", texthl = "GruvboxYellow" })
-    vim.fn.sign_define("DiagnosticSignInformation", { text = "", texthl = "GruvboxBlue" })
-    vim.fn.sign_define("DiagnosticSignHint", { text = "", texthl = "GruvboxAqua" })
+    vim.diagnostic.config({
+        signs = {
+            text = {
+                [vim.diagnostic.severity.ERROR] = "", -- 错误符号
+                [vim.diagnostic.severity.WARN]  = "", -- 警告符号
+                [vim.diagnostic.severity.INFO]  = "", -- 信息符号
+                [vim.diagnostic.severity.HINT]  = "", -- 提示符号
+            },
+            -- 可选：定义高亮组（如果需要自定义颜色）
+            texthl = {
+                [vim.diagnostic.severity.ERROR] = "GruvboxRed",
+                [vim.diagnostic.severity.WARN]  = "GruvboxYellow",
+                [vim.diagnostic.severity.INFO]  = "GruvboxBlue",
+                [vim.diagnostic.severity.HINT]  = "GruvboxAqua",
+            },
+        },
+        virtual_text = true,
+    })
 
     require("mason").setup()
     require("mason-lspconfig").setup {
@@ -33,37 +47,6 @@ function _M.conf()
             "clangd",
         },
     }
-    require("mason-lspconfig").setup_handlers({
-        function(server_name)
-            require("lspconfig")[server_name].setup {
-                on_attach = function()
-                    require('lsp_signature').on_attach({
-                        -- 参数提示
-                        bind = true,
-                        use_lspsaga = false,
-                        floating_window = true,
-                        fix_pos = true,
-                        hint_enable = true,
-                        hint_prefix = " ",
-                        hi_parameter = "Search",
-                        handler_opts = { "double" }
-                    })
-                end
-            }
-        end,
-        -- Next, you can provide targeted overrides for specific servers.
-        ["lua_ls"] = function()
-            lspconfig.lua_ls.setup {
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { "vim" }
-                        }
-                    }
-                }
-            }
-        end
-    })
 end
 
 return _M

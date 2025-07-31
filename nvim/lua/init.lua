@@ -125,15 +125,10 @@ local key_maps                     = function()
     map('n', '<leader>8', '<Cmd>BufferLineGoToBuffer 8<CR>', opts)
     map('n', '<leader>9', '<Cmd>BufferLineGoToBuffer 9<CR>', opts)
 
-    map('n', '<leader>so', ':SymbolsOutline<CR>', opts)
-
     map('n', '<leader>ff', '<cmd>Telescope find_files<cr>', opts)
     map('n', '<leader>fw', '<cmd>Telescope live_grep<cr>', opts)
     map('n', '<leader>fb', '<cmd>Telescope buffers<cr>', opts)
     map('n', '<leader>fh', '<cmd>Telescope help_tags<cr>', opts)
-
-    map('n', '<Leader>sc', ':DashboardChangeColorscheme<CR>', opts)
-    map('n', '<Leader>fe', ':DashboardFindHistory<CR>', opts)
 
     map('n', '<leader>ga', "<Cmd>lua require('diaglist').open_all_diagnostics()<CR>", opts)
 end
