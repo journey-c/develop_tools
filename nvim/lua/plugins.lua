@@ -60,8 +60,8 @@ return require('packer').startup({
 
         use {
             'ray-x/lsp_signature.nvim',
-            opt = true,
-            after = 'nvim-lspconfig'
+            after = 'nvim-lspconfig',
+            config = function() require('plugins.lsp_signature').conf() end
         }
 
         use {
