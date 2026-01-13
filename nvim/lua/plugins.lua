@@ -20,10 +20,21 @@ return require('packer').startup({
 
         use {
             "ellisonleao/gruvbox.nvim",
-            config = [[
-            vim.cmd('colorscheme gruvbox')
-            vim.cmd('hi VertSplit ctermfg=235 guifg=#212026 cterm=None gui=None guibg=NONE ctermbg=NONE')
-            ]]
+            config = function()
+                vim.cmd('colorscheme gruvbox')
+                vim.cmd('hi VertSplit ctermfg=244 guifg=#504945 cterm=None gui=None guibg=NONE ctermbg=NONE')
+                -- 强制设置所有诊断符号和 SignColumn 的背景色
+                local normal_bg = vim.fn.synIDattr(vim.fn.hlID('Normal'), 'bg')
+                vim.cmd('hi SignColumn guibg=' .. normal_bg .. ' ctermbg=235')
+                vim.cmd('hi EndOfBuffer guibg=' .. normal_bg .. ' ctermbg=235')
+                -- 设置诊断符号颜色，保留 Gruvbox 主题颜色
+                vim.cmd('hi DiagnosticSignError guifg=#fb4934 guibg=' .. normal_bg .. ' ctermfg=167 ctermbg=235')
+                vim.cmd('hi DiagnosticSignWarn guifg=#fabd2f guibg=' .. normal_bg .. ' ctermfg=214 ctermbg=235')
+                vim.cmd('hi DiagnosticSignInfo guifg=#83a598 guibg=' .. normal_bg .. ' ctermfg=109 ctermbg=235')
+                vim.cmd('hi DiagnosticSignHint guifg=#8ec07c guibg=' .. normal_bg .. ' ctermfg=108 ctermbg=235')
+                -- 强制重新设置，确保生效
+                vim.cmd('redraw!')
+            end
         }
 
         use {

@@ -147,8 +147,19 @@ local dashboard_config             = function()
     command! -nargs=0 ShellRun :split | terminal sh % <CR>
     ]]
 
+    -- 确保 SignColumn 和诊断符号背景色与 Normal 一致
+    local normal_bg = vim.fn.synIDattr(vim.fn.hlID('Normal'), 'bg')
+    vim.cmd(string.format([[
+        hi VertSplit guifg=#504945 guibg=NONE ctermfg=244 ctermbg=NONE
+        hi SignColumn guibg=%s ctermbg=235
+        hi EndOfBuffer guibg=%s ctermbg=235
+        hi DiagnosticSignError guibg=%s ctermbg=235
+        hi DiagnosticSignWarn guibg=%s ctermbg=235
+        hi DiagnosticSignInfo guibg=%s ctermbg=235
+        hi DiagnosticSignHint guibg=%s ctermbg=235
+    ]], normal_bg, normal_bg, normal_bg, normal_bg, normal_bg, normal_bg))
+
     vim.opt.fillchars = {
-        vert = "┃",
         eob = " ", -- suppress ~ at EndOfBuffer
     }
 end
@@ -164,8 +175,27 @@ local core                         = function()
         autocmd User LspProgressStatusUpdated lua require("lualine").refresh()
     augroup END
     ]])
+    
+    -- 确保颜色方案加载后立即设置高亮
+    vim.cmd([[
+    augroup HighlightFixes
+        autocmd!
+        autocmd ColorScheme * let normal_bg = synIDattr(hlID('Normal'), 'bg') | hi SignColumn guibg=normal_bg ctermbg=235 | hi EndOfBuffer guibg=normal_bg ctermbg=235 | hi DiagnosticSignError guifg=#fb4934 guibg=normal_bg ctermfg=167 ctermbg=235 | hi DiagnosticSignWarn guifg=#fabd2f guibg=normal_bg ctermfg=214 ctermbg=235 | hi DiagnosticSignInfo guifg=#83a598 guibg=normal_bg ctermfg=109 ctermbg=235 | hi DiagnosticSignHint guifg=#8ec07c guibg=normal_bg ctermfg=108 ctermbg=235
+    augroup END
+    ]])
+    
     key_maps()
     dashboard_config()
+    
+    -- 确保在所有配置加载后设置高亮，覆盖任何插件的设置
+    vim.cmd('colorscheme gruvbox')
+    -- 直接在主题加载后设置诊断符号颜色
+    local normal_bg = vim.fn.synIDattr(vim.fn.hlID('Normal'), 'bg')
+    vim.cmd('hi DiagnosticSignError guifg=#fb4934 guibg=' .. normal_bg .. ' ctermfg=167 ctermbg=235')
+    vim.cmd('hi DiagnosticSignWarn guifg=#fabd2f guibg=' .. normal_bg .. ' ctermfg=214 ctermbg=235')
+    vim.cmd('hi DiagnosticSignInfo guifg=#83a598 guibg=' .. normal_bg .. ' ctermfg=109 ctermbg=235')
+    vim.cmd('hi DiagnosticSignHint guifg=#8ec07c guibg=' .. normal_bg .. ' ctermfg=108 ctermbg=235')
+    vim.cmd('hi SignColumn guibg=' .. normal_bg .. ' ctermbg=235')
 end
 
 core()
