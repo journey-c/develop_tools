@@ -1,5 +1,12 @@
 local fn           = vim.fn
 local cmd          = vim.cmd
+
+-- 兼容 shim：Nvim 0.12 起 vim.tbl_islist 被弃用（仍是可调用的存根，每次调用都会告警），
+-- packer 内部仍在调用它。在 packer 加载前无条件将其指向 vim.islist，彻底消除弃用警告。
+if vim.islist ~= nil then
+    vim.tbl_islist = vim.islist
+end
+
 local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
 
 if fn.empty(fn.glob(install_path)) > 0 then
