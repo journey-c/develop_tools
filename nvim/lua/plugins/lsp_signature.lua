@@ -13,7 +13,8 @@ function _M.conf()
         doc_lines = 0,
         max_height = 12,
         max_width = 80,
-        handler_opts = { border = 'single' },
+        -- 细线圆角浮窗边框，与 hover/signature 手动浮窗一致
+        handler_opts = { border = 'rounded' },
         always_trigger = true,
         auto_close_after = nil,
         wrap = false,

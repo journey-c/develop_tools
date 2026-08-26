@@ -142,8 +142,13 @@ return require('packer').startup({
 
         use {
             "folke/which-key.nvim",
+            requires = { "echasnovski/mini.icons" },
             config = function()
-                require("which-key").setup {}
+                require("mini.icons").setup()
+                require("which-key").setup {
+                    -- 细线圆角边框（which-key v3）
+                    win = { border = "rounded" },
+                }
             end
         }
 
@@ -164,7 +169,7 @@ return require('packer').startup({
     config = {
         display = {
             open_fn = function()
-                return require('packer.util').float({ border = 'single' })
+                return require('packer.util').float({ border = 'rounded' })
             end
         }
     }

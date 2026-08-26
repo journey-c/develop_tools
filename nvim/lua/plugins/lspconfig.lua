@@ -38,6 +38,10 @@ function _M.conf()
             numhl = nil,
         },
         virtual_text = true,
+        -- 诊断浮窗（<leader>e 的 open_float 等）统一细线圆角边框
+        float = {
+            border = 'rounded',
+        },
     })
 
     require("mason").setup()

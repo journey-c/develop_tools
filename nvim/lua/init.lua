@@ -86,14 +86,18 @@ local key_maps                     = function()
     local opts = { noremap = true, silent = true }
     g.mapleader = ' '
 
+    -- 细线圆角浮窗边框，供 hover / signature 复用
+    local float_border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
+    _G.FloatBorderChars = float_border
+
     map('n', '<leader>n', ':NvimTreeToggle<CR>', opts)
     map('n', '<leader>fn', ':NvimTreeFindFile<CR>', opts)
 
     map('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
     map('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-    map('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+    vim.keymap.set('n', 'K', function() vim.lsp.buf.hover({ border = float_border }) end, opts)
     map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-    map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+    vim.keymap.set('n', '<C-k>', function() vim.lsp.buf.signature_help({ border = float_border }) end, opts)
     map('n', '<leader>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
     map('n', '<leader>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
     map('n', '<leader>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
@@ -140,7 +144,7 @@ local dashboard_config             = function()
     cmd [[
     let g:floaterm_width = 0.9
     let g:floaterm_height = 0.9
-    hi FloatermBorder guibg=synIDattr(hlID("Normal"), "bg")
+    hi FloatermBorder guifg=#a89984 guibg=synIDattr(hlID("Normal"), "bg") ctermfg=246
     command! -nargs=0 Tig :terminal tig
     command! -nargs=0 CodeForces :split | terminal g++ % -std=c++17 -o %< && ./%< < in <CR>
     command! -nargs=0 CxxRun :split | terminal g++ % -std=c++17 -o %< && ./%< <CR>
@@ -180,7 +184,7 @@ local core                         = function()
     vim.cmd([[
     augroup HighlightFixes
         autocmd!
-        autocmd ColorScheme * let normal_bg = synIDattr(hlID('Normal'), 'bg') | hi SignColumn guibg=normal_bg ctermbg=235 | hi EndOfBuffer guibg=normal_bg ctermbg=235 | hi DiagnosticSignError guifg=#fb4934 guibg=normal_bg ctermfg=167 ctermbg=235 | hi DiagnosticSignWarn guifg=#fabd2f guibg=normal_bg ctermfg=214 ctermbg=235 | hi DiagnosticSignInfo guifg=#83a598 guibg=normal_bg ctermfg=109 ctermbg=235 | hi DiagnosticSignHint guifg=#8ec07c guibg=normal_bg ctermfg=108 ctermbg=235
+        autocmd ColorScheme * let normal_bg = synIDattr(hlID('Normal'), 'bg') | hi SignColumn guibg=normal_bg ctermbg=235 | hi EndOfBuffer guibg=normal_bg ctermbg=235 | hi NormalFloat guibg=normal_bg ctermbg=235 | hi FloatBorder guifg=#a89984 guibg=normal_bg ctermfg=246 ctermbg=235 | hi DiagnosticSignError guifg=#fb4934 guibg=normal_bg ctermfg=167 ctermbg=235 | hi DiagnosticSignWarn guifg=#fabd2f guibg=normal_bg ctermfg=214 ctermbg=235 | hi DiagnosticSignInfo guifg=#83a598 guibg=normal_bg ctermfg=109 ctermbg=235 | hi DiagnosticSignHint guifg=#8ec07c guibg=normal_bg ctermfg=108 ctermbg=235
     augroup END
     ]])
     
@@ -196,6 +200,9 @@ local core                         = function()
     vim.cmd('hi DiagnosticSignInfo guifg=#83a598 guibg=' .. normal_bg .. ' ctermfg=109 ctermbg=235')
     vim.cmd('hi DiagnosticSignHint guifg=#8ec07c guibg=' .. normal_bg .. ' ctermfg=108 ctermbg=235')
     vim.cmd('hi SignColumn guibg=' .. normal_bg .. ' ctermbg=235')
+    -- 浮窗背景与编辑器一致，消除圆角边框外露出的直角矩形轮廓
+    vim.cmd('hi NormalFloat guibg=' .. normal_bg .. ' ctermbg=235')
+    vim.cmd('hi FloatBorder guifg=#a89984 guibg=' .. normal_bg .. ' ctermfg=246 ctermbg=235')
 end
 
 core()
